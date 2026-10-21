@@ -110,8 +110,8 @@ NVIDIA Shield) ke port HDMI.
 
 ## Kredit dan lesen
 
-- Fork daripada [Glass TV](https://github.com/cocombee/glass-tv) oleh cocombee, yang dibina di atas
-  [CleanYourTV](https://github.com/Gathin23/cleanyourtv) © 2026 Gathin. Lesen MIT, lihat [LICENSE](LICENSE).
+- Dibina di atas [CleanYourTV](https://github.com/Gathin23/cleanyourtv) © 2026 Gathin. Lesen MIT, lihat
+  [LICENSE](LICENSE).
 - Waktu solat dari [e-Solat JAKIM](https://www.e-solat.gov.my). Teks Al-Quran (Uthmani, Hafs) dan terjemahan
   Kemenag RI melalui [quran.com](https://quran.com).
 - Gambar masjid dari Wikimedia Commons, setiap satu dengan kredit di skrin dan dalam

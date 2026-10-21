@@ -1,12 +1,12 @@
 # Which TVs work
 
-Glass TV runs on **Android TV and Google TV, Android 8 or newer**: on the TV itself, or on a box or stick
+Clear TV Islamic runs on **Android TV and Google TV, Android 8 or newer**: on the TV itself, or on a box or stick
 plugged into any TV. This page says how far each device has been tested. "Tested" means a person ran it on
 that exact model; nothing here is guessed from a spec sheet without saying so.
 
-## 1. Glass TV tested end to end
+## 1. Clear TV Islamic tested end to end
 
-Every feature of this version (debloat, Glass TV as Home, the glass and gliding selection, places, moving apps,
+Every feature of this version (debloat, Clear TV Islamic as Home, the glass and gliding selection, places, moving apps,
 the Inputs menu, the clock screensaver, self-cleaning caches, the install safeguard), on the real TV, over weeks
 of daily use and stress tests:
 
@@ -14,7 +14,7 @@ of daily use and stress tests:
 |---|---|---|
 | Xiaomi Mi TV (MiTV-MOOQ0, croods) | Android TV 10 | [`xiaomi-mitv-mooq0`](../examples/xiaomi-mitv-mooq0/) |
 
-Also run with Glass TV by others, for the parts they checked:
+Also run with Clear TV Islamic by others, for the parts they checked:
 
 | Device | System | Checked | Report |
 |---|---|---|---|
@@ -23,8 +23,8 @@ Also run with Glass TV by others, for the parts they checked:
 ## 2. Tested with the original launcher
 
 Contributors debloated these and made the original [Clean Your TV](https://github.com/Gathin23/cleanyourtv)
-launcher their Home. Glass TV is that launcher with more on top and the same Android 8 minimum, so these are
-expected to run it too, but each has been checked with the original, not with Glass TV itself. If you run Glass
+launcher their Home. Clear TV Islamic is that launcher with more on top and the same Android 8 minimum, so these are
+expected to run it too, but each has been checked with the original, not with Clear TV Islamic itself. If you run Glass
 TV on one, add a line to its `debloat.txt` and it moves to section 1.
 
 | Device | System | Example list |
@@ -110,7 +110,7 @@ Android TV or Google TV 8 or newer, so nothing stands in the way, but no one has
 | Hisense / Toshiba VIDAA, Roku, Vizio SmartCast, Panasonic My Home Screen, Apple TV | Same | A box |
 | Older unifi IPTV set-top boxes (before the Plus Box) | Not Android TV | A box |
 
-With a box, the TV becomes the screen and Glass TV is the whole experience. Turn on HDMI-CEC on the TV (Anynet+
+With a box, the TV becomes the screen and Clear TV Islamic is the whole experience. Turn on HDMI-CEC on the TV (Anynet+
 on Samsung, SIMPLINK on LG, "CEC Control" on Hisense) so the TV's remote drives the box.
 
 Before setting up any device, look up where developer settings are on that exact model: see

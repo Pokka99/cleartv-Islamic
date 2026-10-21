@@ -9,22 +9,22 @@ YouTube launched, reached its main activity, played its UI sounds — and drew
 nothing at all. Clearing the caches freed about 7 GB and fixed it on the spot,
 with no reinstall and no sign-out.
 
-Glass TV stops that from building up again, on the TV itself. A computer script does the same for several
+Clear TV Islamic stops that from building up again, on the TV itself. A computer script does the same for several
 TVs at once (below).
 
-## On the TV itself (Glass TV)
+## On the TV itself (Clear TV Islamic)
 
-Every 15 days, once Home has sat idle on screen for 20 seconds, Glass TV runs `pm trim-caches` on its own
+Every 15 days, once Home has sat idle on screen for 20 seconds, Clear TV Islamic runs `pm trim-caches` on its own
 TV. It also cleans early, at most every 3 days, when storage passes 80 %. No computer is involved, so it
 works the same whether the TV was set up from a Mac, Windows or Linux.
 
-Android lets no installed app clear other apps' caches, so Glass TV asks the TV's own debugging service,
+Android lets no installed app clear other apps' caches, so Clear TV Islamic asks the TV's own debugging service,
 the one the setup used over Wi-Fi, to run that one command. The first time, 20 seconds after Home comes up, the TV
 shows **Allow USB debugging?** for up to a minute: tick **Always allow** and press OK. Watch for it: with
 "Always allow" already ticked, a single OK press on the remote answers it, so it can come and go unseen. That means network debugging has to stay on; the TV
 only accepts connections it has allowed this way.
 
-The TV forgets an allowed key that has not connected for 7 days, so between cleans Glass TV checks in every
+The TV forgets an allowed key that has not connected for 7 days, so between cleans Clear TV Islamic checks in every
 3 days: it connects and disconnects, running nothing, and the TV keeps trusting it without asking again.
 
 It is built not to get in the way: it only ever sends that one command, never while an app is in front;
@@ -34,14 +34,14 @@ prompts it stops asking.
 - Change how often with `"cache_clean_days"` in the theme's `config.json` (1 to 90); `0` turns it off.
 - Clean right now, and show the prompt again: `tools/tv.py 'touch /sdcard/Android/data/com.gathin.tvhome/files/clean-now'`,
   then press Home and wait 20 seconds.
-- See the prompt again (to test it): also `touch .../files/new-key` before `clean-now`. Glass TV makes a new key,
+- See the prompt again (to test it): also `touch .../files/new-key` before `clean-now`. Clear TV Islamic makes a new key,
   which the TV has not allowed yet.
 - Its log: `logcat -s TvHome.Clean`.
 
 ## The computer script
 
 [`tools/cache-clean.sh`](../tools/cache-clean.sh) cleans every TV on the network from a Mac or Linux
-computer, Glass TV or not.
+computer, Clear TV Islamic or not.
 
 ## What it does
 

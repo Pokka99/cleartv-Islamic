@@ -1,5 +1,5 @@
 /*
- * Stress test for Glass TV on webOS. Open index.html#stress (in a browser, or the simulator): it presses
+ * Stress test for Clear TV Islamic on webOS. Open index.html#stress (in a browser, or the simulator): it presses
  * the remote thousands of times the way a restless thumb would, and checks after every phase that
  * nothing broke, leaked or lost an app. Black-box: it reads only what is on the page.
  *

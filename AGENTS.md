@@ -1,6 +1,6 @@
 # Instructions for AI agents
 
-You are helping someone set up **Glass TV** on their own TV: on Android TV and Google TV, debloat it and install
+You are helping someone set up **Clear TV Islamic** on their own TV: on Android TV and Google TV, debloat it and install
 this launcher as the home screen, with pictures of places behind it; on LG webOS, install the webOS app. This file is the playbook. It is written for any brand and for any
 AI model, large or small. Follow it in order, and read [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
 before you improvise a fix.
@@ -12,14 +12,14 @@ check it **before** connecting, asking for an IP address, downloading tools or t
 
 1. Look it up in [docs/DEVICES.md](docs/DEVICES.md) and the table below.
 2. If it is **not supported** (Samsung Tizen, Hisense or Toshiba VIDAA, Roku, Vizio, Panasonic My Home Screen,
-   Apple TV, an older unifi IPTV box), or only partly (Fire TV and the debloat-only models: no Glass TV Home;
+   Apple TV, an older unifi IPTV box), or only partly (Fire TV and the debloat-only models: no Clear TV Islamic Home;
    LG webOS: only an app you open), say so **first**, in plain words, before any setup step. For example:
-   "Your Samsung QN90B runs Tizen, so Glass TV can't run on it. A Google TV stick in its HDMI port gives you
+   "Your Samsung QN90B runs Tizen, so Clear TV Islamic can't run on it. A Google TV stick in its HDMI port gives you
    all of it." Then stop, unless they choose the box or the partial option.
 3. If you don't know whether the model runs Android TV, find out first (the About screen, the maker's spec
    page). Never start a setup "to see if it works".
 
-## Which Glass TV to install
+## Which Clear TV Islamic to install
 
 Ask the person for the TV's brand and model, and what the Settings → About screen says. It is the operating
 system that matters, not the brand: Hisense, Panasonic, Toshiba, TCL and Philips sell both kinds. Then pick
@@ -27,7 +27,7 @@ system that matters, not the brand: Hisense, Panasonic, Toshiba, TCL and Philips
 
 | The TV or box runs | Install | Follow |
 |---|---|---|
-| **Android TV or Google TV, Android 8 or newer** (Sony, TCL, Xiaomi, Philips, many Hisense, Sharp, OnePlus, NVIDIA Shield, Chromecast with Google TV, Mi Box, Android projectors…) | **The Android launcher**: debloat + Glass TV as the home screen + self-cleaning | This file, steps 1 to 7 |
+| **Android TV or Google TV, Android 8 or newer** (Sony, TCL, Xiaomi, Philips, many Hisense, Sharp, OnePlus, NVIDIA Shield, Chromecast with Google TV, Mi Box, Android projectors…) | **The Android launcher**: debloat + Clear TV Islamic as the home screen + self-cleaning | This file, steps 1 to 7 |
 | Android TV 5, 6 or 7 | Debloat only: the launcher needs Android 8 | Steps 1 to 3, then step 7 |
 | Fire TV (Amazon sticks, Fire TV Edition TVs) | Debloat only: Fire OS takes Home back from any other launcher | Steps 1 to 3, then step 7 |
 | **LG (webOS)** | **The webOS app** (preview): an app you open, not the home screen; no debloat, no cache cleaning | [webos/README.md](webos/README.md) only. Not these steps: they are for Android |
@@ -160,12 +160,12 @@ Written so that any model can follow it to the letter:
 ### 5. Install and make it Home
 
 - `TV_HOST=<ip> launcher/build-and-install.sh` (Windows: `launcher\build-and-install.ps1 -TvHost <ip>`). It has a
-  safeguard that puts the TV back as it was if Glass TV does not work on it:
+  safeguard that puts the TV back as it was if Clear TV Islamic does not work on it:
   - Before changing anything it refuses Android older than 8 and Fire TV, with a plain message.
-  - It installs and starts Glass TV, and checks it is really in front and not restarting **before** it
+  - It installs and starts Clear TV Islamic, and checks it is really in front and not restarting **before** it
     touches the TV's own launcher.
-  - Only then it disables the stock launcher and makes Glass TV Home, presses Home and checks again.
-  - If any check fails, or the connection drops part-way, it removes Glass TV, re-enables the original
+  - Only then it disables the stock launcher and makes Clear TV Islamic Home, presses Home and checks again.
+  - If any check fails, or the connection drops part-way, it removes Clear TV Islamic, re-enables the original
     launcher, sets it back as Home and presses Home. The debloat list is not touched; `tools/restore.sh`
     undoes that.
 - Before that, look at the Home list from step 2. Disable any other app there that is neither the stock
@@ -205,7 +205,7 @@ A theme is a folder with `config.json` (and optional `wallpaper.jpg` or `wallpap
 - Point the screensaver at the launcher's clock before disabling the stock screensaver:
   `settings put secure screensaver_components com.gathin.tvhome/.ClockDream`.
 - **Check**: Home restarts within a few seconds with the new settings.
-- **Cache cleaning**: Glass TV clears the TV's app caches itself every 15 days ([docs/cache-clean.md](docs/cache-clean.md)).
+- **Cache cleaning**: Clear TV Islamic clears the TV's app caches itself every 15 days ([docs/cache-clean.md](docs/cache-clean.md)).
   It needs the TV's permission once. With the person at the TV, run
   `touch /sdcard/Android/data/com.gathin.tvhome/files/clean-now`, press Home and wait 20 seconds: the TV asks
   **Allow USB debugging?**; they tick **Always allow** and press OK. **Check**: `logcat -d -s TvHome.Clean`

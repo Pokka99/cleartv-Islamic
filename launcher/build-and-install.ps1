@@ -49,9 +49,9 @@ $knownStock = @('com.google.android.tvlauncher', 'com.google.android.apps.tv.lau
 # Refuse a TV the home screen cannot run on before anything changes, and say why.
 $sdk = (& $py -I ..\tools\tv.py 'getprop ro.build.version.sdk' | Select-Object -Last 1)
 if ($LASTEXITCODE -ne 0 -or -not $sdk) { throw 'could not reach the TV; check -TvHost and the debugging prompt on the TV. Nothing was changed.' }
-if ([int]"$sdk".Trim() -lt 26) { throw "this TV runs Android API $("$sdk".Trim()); the Glass TV home screen needs Android 8 (API 26) or newer. Debloating still works (tools\disable.ps1). Nothing was changed." }
+if ([int]"$sdk".Trim() -lt 26) { throw "this TV runs Android API $("$sdk".Trim()); the Clear TV Islamic home screen needs Android 8 (API 26) or newer. Debloating still works (tools\disable.ps1). Nothing was changed." }
 if ("$(& $py -I ..\tools\tv.py 'getprop ro.product.manufacturer' | Select-Object -Last 1)".Trim() -eq 'Amazon') {
-    throw 'this is a Fire TV. Fire OS takes Home back from any other launcher, so the Glass TV home screen cannot stay. Debloating still works (tools\disable.ps1). Nothing was changed.'
+    throw 'this is a Fire TV. Fire OS takes Home back from any other launcher, so the Clear TV Islamic home screen cannot stay. Debloating still works (tools\disable.ps1). Nothing was changed.'
 }
 # Where Home goes now, so a failed install can put it back exactly.
 $origHome = "$(& $py -I ..\tools\tv.py 'cmd package resolve-activity --brief -a android.intent.action.MAIN -c android.intent.category.HOME' | Select-Object -Last 1)".Trim()
@@ -92,12 +92,12 @@ function Restore-Tv {
     if ($env:SAFEGUARD_TEST) { Write-Host "SAFEGUARD_TEST: would run on the TV:`n$($cmds -join "`n")"; return }
     try {
         $cmds | & $py -I ..\tools\tv.py --batch | Out-Null
-        Write-Host "Done: Glass TV removed and the TV's own home screen is back $($restore -join ' ')."
+        Write-Host "Done: Clear TV Islamic removed and the TV's own home screen is back $($restore -join ' ')."
     } catch {
         Write-Host "Could not reach the TV to undo it. Once it is back on the network, run tools\restore.ps1 with your debloat list $($restore -join ' ')."
     }
 }
-# Glass TV in front, and the same process a few seconds later (not crashing and restarting).
+# Clear TV Islamic in front, and the same process a few seconds later (not crashing and restarting).
 function Test-Healthy([string]$Stage) {
     if ($env:SAFEGUARD_TEST -eq $Stage) { return $false }
     # Sent on stdin: Windows PowerShell 5.1 drops the inner double quotes from native arguments (#4).
@@ -117,7 +117,7 @@ try {
         "am start -W -n com.gathin.tvhome/.MainActivity | grep -E '^(Status|Error)'"
     ) | & $py -I ..\tools\tv.py --batch
     # Check it really runs on this TV before the TV's own launcher is touched.
-    if (-not (Test-Healthy 'start')) { throw 'Glass TV did not start properly on this TV (it is not in front, or it keeps restarting).' }
+    if (-not (Test-Healthy 'start')) { throw 'Clear TV Islamic did not start properly on this TV (it is not in front, or it keeps restarting).' }
     # Android 9 only accepts a component here; Android 10+ also takes a bare package name.
     @(
         $disableStock,
@@ -130,9 +130,9 @@ try {
         throw "Home resolves to '$homeNow', not to the new launcher. On Google TV this usually means com.google.android.tungsten.setupwraith also claims Home: add it to your debloat list (see README, Troubleshooting), apply it, then run this script again."
     }
     Write-Host "Home now resolves to $homeNow"
-    # Press Home the way the remote does, and check Glass TV answers and stays up.
+    # Press Home the way the remote does, and check Clear TV Islamic answers and stays up.
     & $py -I ..\tools\tv.py 'input keyevent KEYCODE_HOME' | Out-Null
-    if (-not (Test-Healthy 'home')) { throw 'pressing Home did not bring up a working Glass TV.' }
+    if (-not (Test-Healthy 'home')) { throw 'pressing Home did not bring up a working Clear TV Islamic.' }
 } catch {
     Restore-Tv
     throw

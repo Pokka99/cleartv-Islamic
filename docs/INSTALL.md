@@ -221,6 +221,6 @@ by hand, an AI assistant such as Claude Code can do it with you safely: see [AGE
 | Windows says scripts are disabled | Run `Set-ExecutionPolicy -Scope Process Bypass` in the same window (step 6). |
 | No prayer times under the clock | Check `prayer_zone` in `config.json`, that the TV has internet, then wait a minute. |
 | No sound at the azan | The file must be named exactly `azan.mp3` and be inside `my-theme`; send it again (step 14). |
-| `INSTALL_FAILED_UPDATE_INCOMPATIBLE` | A different build (Glass TV or another Clear TV Islamic) is already installed: remove it first (`pm uninstall com.gathin.tvhome`), then step 10 again. |
+| `INSTALL_FAILED_UPDATE_INCOMPATIBLE` | A different build of Clear TV Islamic is already installed: remove it first (`pm uninstall com.gathin.tvhome`), then step 10 again. |
 
 More answers are in [TROUBLESHOOTING.md](TROUBLESHOOTING.md).

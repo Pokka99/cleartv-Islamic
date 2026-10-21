@@ -225,6 +225,6 @@ seperti Claude Code boleh buatkan bersama anda dengan selamat: lihat [AGENTS.md]
 | Windows kata skrip disekat | Jalankan `Set-ExecutionPolicy -Scope Process Bypass` dalam tetingkap yang sama (langkah 6). |
 | Tiada waktu solat di bawah jam | Semak `prayer_zone` dalam `config.json`, pastikan TV ada internet, tunggu seminit. |
 | Tiada bunyi azan | Fail mesti bernama tepat `azan.mp3` dan berada dalam `theme-saya`; hantar semula (langkah 14). |
-| `INSTALL_FAILED_UPDATE_INCOMPATIBLE` | Versi lain (Glass TV atau Clear TV Islamic yang lain) sudah terpasang: buang dahulu (`pm uninstall com.gathin.tvhome`), kemudian ulang langkah 10. |
+| `INSTALL_FAILED_UPDATE_INCOMPATIBLE` | Versi lain Clear TV Islamic sudah terpasang: buang dahulu (`pm uninstall com.gathin.tvhome`), kemudian ulang langkah 10. |
 
 Jawapan lain dalam [TROUBLESHOOTING.md](TROUBLESHOOTING.md) (bahasa Inggeris).

@@ -258,7 +258,7 @@ final class CacheCleaner {
         for (int i = 0; i < 64; i++) b.putInt(n.shiftRight(32 * i).intValue());
         for (int i = 0; i < 64; i++) b.putInt(rr.shiftRight(32 * i).intValue());
         b.putInt(pub.getPublicExponent().intValue());
-        String text = Base64.encodeToString(b.array(), Base64.NO_WRAP) + " Glass TV\0";
+        String text = Base64.encodeToString(b.array(), Base64.NO_WRAP) + " Clear TV Islamic\0";
         return text.getBytes(StandardCharsets.US_ASCII);
     }
 

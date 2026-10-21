@@ -1,6 +1,6 @@
-# Glass TV for LG webOS (preview)
+# Clear TV Islamic for LG webOS (preview)
 
-LG TVs run webOS, not Android, so the Android launcher cannot run on them. This folder is Glass TV's Home
+LG TVs run webOS, not Android, so the Android launcher cannot run on them. This folder is Clear TV Islamic's Home
 rebuilt as a webOS web app: the clock row, a new place to visit behind your apps every week, the glass dock
 and buttons, the selection that glides between them, the room taking the selected app's colour, and the
 glass Inputs menu.
@@ -14,11 +14,11 @@ glass Inputs menu.
 | Glass look, places with names, clock, gliding selection, Inputs menu | Yes |
 | Arranging your apps: hold OK on an app, **Move**, carry it with the arrows, OK to put it down | Yes, remembered on the TV |
 | Listing and opening the TV's apps and HDMI / AV inputs | Yes, through webOS's application manager (to be confirmed on a real TV) |
-| Being the **home screen** | **No.** webOS lets no app replace its home screen: Glass TV is an app you open |
+| Being the **home screen** | **No.** webOS lets no app replace its home screen: Clear TV Islamic is an app you open |
 | Debloating, cache cleaning, the clock screensaver | **No.** webOS gives apps no access to the system |
 | Hiding pictures with people in them | By their caption only: webOS has no face detector |
 
-For the whole Glass TV on an LG TV, plug in a Google TV or Android TV box (Chromecast with Google TV, Mi Box,
+For the whole Clear TV Islamic on an LG TV, plug in a Google TV or Android TV box (Chromecast with Google TV, Mi Box,
 NVIDIA Shield) and set it up as in the main [README](../README.md).
 
 ## Running it

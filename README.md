@@ -23,8 +23,7 @@ rests: a gold clock, the Hijri date and a verse of the Quran. When the time come
 - **Light and clean**: ads, tracking and bloat switched off, and the TV clears its own caches every 15 days.
 
 **New to this? Follow the [step-by-step install guide](docs/INSTALL.md)**: no coding, no Android SDK, about
-30 minutes. Built on [Glass TV by cocombee](https://github.com/cocombee/glass-tv) (MIT); every original feature
-is still here and described below.
+30 minutes. Built on [CleanYourTV](https://github.com/Gathin23/cleanyourtv) by Gathin (MIT).
 
 <sub>The promo pictures use photos from Wikimedia Commons: Quba Mosque (Muhammad Mahdi Karim, GFDL 1.2),
 Masjid al-Haram (Saudipics.com, CC BY-SA 4.0) and Jame' Asr Hassanil Bolkiah Mosque (Jorge Láscar, CC BY 2.0).</sub>
@@ -82,7 +81,7 @@ while you are inside an app.
 
 **Using an AI coding agent** (Claude Code, Codex, Cursor, Copilot…)? Point it at this repository and ask it to
 set up your TV. [AGENTS.md](AGENTS.md) tells any agent, even a small model, how to do it safely on any Android TV or Google
-TV: it first works out which Glass TV your TV can run (the Android launcher, the LG webOS app, or neither on
+TV: it first works out which Clear TV Islamic your TV can run (the Android launcher, the LG webOS app, or neither on
 Samsung and Roku), then
 asks before each change, backs up first, never uninstalls, and checks each step with you as it goes.
 
@@ -151,7 +150,7 @@ removing `prayer_zone` turns all of it off.
 
 Android TV and Google TV, Android 8 or newer, on the TV or on a box plugged into any TV.
 [docs/DEVICES.md](docs/DEVICES.md) lists every tested model and how far each was tested: end to end with
-Glass TV, with the original launcher, or debloat only, plus what is expected to work and what cannot.
+Clear TV Islamic, with the original launcher, or debloat only, plus what is expected to work and what cannot.
 
 ## LG and Samsung TVs
 
@@ -185,7 +184,6 @@ online.
 - Pictures of places and their captions are Bing's daily images (Microsoft). The launcher fetches them on your
   own TV; the promo pictures above show three of them.
 - Gotham, used in the original promo pictures only, is a Hoefler&Co. typeface and is not part of this repository.
-- Clear TV Islamic is a fork of [Glass TV](https://github.com/cocombee/glass-tv) by cocombee (MIT).
 - Prayer times from JAKIM's [e-Solat](https://www.e-solat.gov.my). Quran text (Uthmani, Hafs) and the Kemenag RI
   translation via [quran.com](https://quran.com). Mosque photos from Wikimedia Commons, each credited on screen and
   in [themes/islamik/masjid.json](themes/islamik/masjid.json).

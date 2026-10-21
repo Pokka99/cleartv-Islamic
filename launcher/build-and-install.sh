@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Build the launcher APK and install it on the TV as the default home screen.
-# APK=<file> installs that APK instead of building one (e.g. APK=dist/glass-tv-islamik.apk): no JDK or
+# APK=<file> installs that APK instead of building one (e.g. APK=dist/clear-tv-islamic.apk): no JDK or
 # Android SDK needed.
 set -euo pipefail
 PREBUILT="${APK:-}"
@@ -33,12 +33,12 @@ KNOWN_STOCK_LAUNCHERS="com.google.android.tvlauncher com.google.android.apps.tv.
 SDK=$("$PY" -I ../tools/tv.py 'getprop ro.build.version.sdk' | tail -n 1 | tr -d '\r ') || {
   echo "ERROR: could not reach the TV. Check TV_HOST and the debugging prompt on the TV. Nothing was changed." >&2; exit 1; }
 if [ "${SDK:-0}" -lt 26 ] 2>/dev/null; then
-  echo "ERROR: this TV runs Android API $SDK; the Glass TV home screen needs Android 8 (API 26) or newer." >&2
+  echo "ERROR: this TV runs Android API $SDK; the Clear TV Islamic home screen needs Android 8 (API 26) or newer." >&2
   echo "Debloating still works (tools/disable.sh). Nothing was changed." >&2; exit 1
 fi
 MAKER=$("$PY" -I ../tools/tv.py 'getprop ro.product.manufacturer' | tail -n 1 | tr -d '\r')
 if [ "$MAKER" = Amazon ]; then
-  echo "ERROR: this is a Fire TV. Fire OS takes Home back from any other launcher, so the Glass TV home screen" >&2
+  echo "ERROR: this is a Fire TV. Fire OS takes Home back from any other launcher, so the Clear TV Islamic home screen" >&2
   echo "cannot stay. Debloating still works (tools/disable.sh). Nothing was changed." >&2; exit 1
 fi
 # Where Home goes now, so a failed install can put it back exactly.
@@ -85,14 +85,14 @@ else DISABLE_STOCK="pm disable-user --user 0 $STOCK_LAUNCHER"; fi
 APK="${PREBUILT:-app/build/outputs/apk/release/app-release.apk}"
 
 # The safeguard. From the install on, any failure (a check below, or a dropped connection that stops the
-# script) puts the TV back as it was: Glass TV removed, the original launcher enabled and made Home again.
+# script) puts the TV back as it was: Clear TV Islamic removed, the original launcher enabled and made Home again.
 # SAFEGUARD_TEST=start|home makes that check fail on purpose and prints the rollback instead of running it.
 ARMED=0
 rollback() {
   [ "$ARMED" = 1 ] || return 0
   ARMED=0
   echo "Putting the TV back the way it was..." >&2
-  # The launcher to bring back: the one disabled above, or, when Glass TV was already Home, any known stock
+  # The launcher to bring back: the one disabled above, or, when Clear TV Islamic was already Home, any known stock
   # launcher an earlier install disabled.
   local restore="" k
   if [ "$STOCK_LAUNCHER" != none ]; then restore=$STOCK_LAUNCHER
@@ -114,14 +114,14 @@ input keyevent KEYCODE_HOME"
   if [ -n "${SAFEGUARD_TEST:-}" ]; then
     printf 'SAFEGUARD_TEST: would run on the TV:\n%s\n' "$cmds" >&2
   elif printf '%s\n' "$cmds" | "$PY" -I ../tools/tv.py --batch >/dev/null 2>&1; then
-    echo "Done: Glass TV removed and the TV's own home screen is back${restore:+ ($restore)}." >&2
+    echo "Done: Clear TV Islamic removed and the TV's own home screen is back${restore:+ ($restore)}." >&2
   else
     echo "Could not reach the TV to undo it. Once it is back on the network, run:" >&2
     echo "  TV_HOST=$TV_HOST tools/restore.sh <your debloat list>${restore:+ $restore}" >&2
   fi
 }
 trap 'st=$?; [ $st -ne 0 ] && rollback; exit $st' EXIT
-# Glass TV in front, and the same process a few seconds later (not crashing and restarting).
+# Clear TV Islamic in front, and the same process a few seconds later (not crashing and restarting).
 healthy() {
   [ "${SAFEGUARD_TEST:-}" = "$1" ] && return 1
   local s p1 p2 f
@@ -146,7 +146,7 @@ printf '%s\n' \
   | "$PY" -I ../tools/tv.py --batch
 # Check it really runs on this TV before the TV's own launcher is touched.
 if ! healthy start; then
-  echo "ERROR: Glass TV did not start properly on this TV (it is not in front, or it keeps restarting)." >&2
+  echo "ERROR: Clear TV Islamic did not start properly on this TV (it is not in front, or it keeps restarting)." >&2
   exit 1
 fi
 printf '%s\n' \
@@ -167,10 +167,10 @@ case "$HOME_NOW" in
     echo "your debloat list (see README, Troubleshooting), apply the list, then run this script again." >&2
     exit 1 ;;
 esac
-# Press Home the way the remote does, and check Glass TV answers and stays up.
+# Press Home the way the remote does, and check Clear TV Islamic answers and stays up.
 "$PY" -I ../tools/tv.py 'input keyevent KEYCODE_HOME' >/dev/null
 if ! healthy home; then
-  echo "ERROR: pressing Home did not bring up a working Glass TV." >&2
+  echo "ERROR: pressing Home did not bring up a working Clear TV Islamic." >&2
   exit 1
 fi
 ARMED=0
