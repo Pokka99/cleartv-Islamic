@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 # Build the launcher APK and install it on the TV as the default home screen.
+# APK=<file> installs that APK instead of building one (e.g. APK=dist/glass-tv-islamik.apk): no JDK or
+# Android SDK needed.
 set -euo pipefail
+PREBUILT="${APK:-}"
+case "$PREBUILT" in ""|/*) ;; *) PREBUILT="$PWD/$PREBUILT" ;; esac
 cd "$(dirname "$0")"
 : "${TV_HOST:?set TV_HOST to the TV IP address, e.g. TV_HOST=192.168.1.50 $0}"
 # macOS: java_home or Homebrew; Linux: the java on PATH.
@@ -8,9 +12,13 @@ export JAVA_HOME="${JAVA_HOME:-$(/usr/libexec/java_home -v 17 2>/dev/null || { [
 # Android Studio's default SDK location on macOS, then on Linux, then Homebrew's command-line tools.
 export ANDROID_HOME="${ANDROID_HOME:-$(for d in ~/Library/Android/sdk ~/Android/Sdk; do [ -d "$d" ] && echo "$d" && break; done)}"
 export ANDROID_HOME="${ANDROID_HOME:-/opt/homebrew/share/android-commandlinetools}"
-export PATH="$JAVA_HOME/bin:$PATH"
-[ -f local.properties ] || echo "sdk.dir=$ANDROID_HOME" > local.properties
-./gradlew assembleRelease -q --console=plain
+if [ -z "$PREBUILT" ]; then
+  export PATH="$JAVA_HOME/bin:$PATH"
+  [ -f local.properties ] || echo "sdk.dir=$ANDROID_HOME" > local.properties
+  ./gradlew assembleRelease -q --console=plain
+else
+  [ -f "$PREBUILT" ] || { echo "ERROR: no APK at $PREBUILT" >&2; exit 1; }
+fi
 TOOLS="$(cd ../tools && pwd)"   # absolute, so the venv's Python doesn't warn about "../" in its prefix
 PY=$TOOLS/venv/bin/python
 [ -x "$PY" ] || PY=$TOOLS/venv/Scripts/python.exe
@@ -74,7 +82,7 @@ fi
 echo "Stock launcher: $STOCK_LAUNCHER"
 if [ "$STOCK_LAUNCHER" = none ]; then DISABLE_STOCK="echo stock launcher left alone"
 else DISABLE_STOCK="pm disable-user --user 0 $STOCK_LAUNCHER"; fi
-APK=app/build/outputs/apk/release/app-release.apk
+APK="${PREBUILT:-app/build/outputs/apk/release/app-release.apk}"
 
 # The safeguard. From the install on, any failure (a check below, or a dropped connection that stops the
 # script) puts the TV back as it was: Glass TV removed, the original launcher enabled and made Home again.
