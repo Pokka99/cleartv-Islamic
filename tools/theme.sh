@@ -20,7 +20,7 @@ DIR=/sdcard/Android/data/$PKG/files
 tv() { "$PY" -I tv.py "$@"; }
 
 if [ "${1:-}" = --reset ]; then
-  tv "rm -rf $DIR/config.json $DIR/wallpaper.jpg $DIR/wallpapers; am force-stop $PKG; am start -n $PKG/.MainActivity >/dev/null; echo reset" | tail -n 1
+  tv "rm -rf $DIR/config.json $DIR/wallpaper.jpg $DIR/wallpapers $DIR/azan.mp3 $DIR/azan-subuh.mp3; am force-stop $PKG; am start -n $PKG/.MainActivity >/dev/null; echo reset" | tail -n 1
   exit 0
 fi
 THEME="${THEME_ARG:?usage: theme.sh <theme folder> | --reset}"
@@ -36,6 +36,14 @@ else
   tv "rm -f $DIR/wallpaper.jpg" >/dev/null
 fi
 # A wallpapers/ folder is a rotation: the launcher shows one picture after another (wallpaper_minutes).
+# The azan's sound (prayer_zone): azan.mp3, and azan-subuh.mp3 for Subuh.
+for f in azan.mp3 azan-subuh.mp3; do
+  if [ -f "$THEME/$f" ]; then
+    "$PY" -I b64push.py "$THEME/$f" "$DIR/$f" | tail -n 1
+  else
+    tv "rm -f $DIR/$f" >/dev/null
+  fi
+done
 tv "rm -rf $DIR/wallpapers" >/dev/null
 if [ -d "$THEME/wallpapers" ]; then
   tv "mkdir -p $DIR/wallpapers" >/dev/null

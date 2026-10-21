@@ -33,6 +33,26 @@ public class ClockDream extends DreamService {
     private final Random random = new Random();
     private View content;
     private ClockFace face;
+    /** The azan at prayer times (Azan), or null when the theme has no prayer_zone or turns it off. */
+    private Azan azan;
+    private String prayerZone;
+    private boolean reducedMotion;
+    private static final long AZAN_CHECK_MS = 20_000L;
+    private final Runnable azanCheck = new Runnable() {
+        @Override
+        public void run() {
+            int due = Azan.takeDue(ClockDream.this, prayerZone);
+            if (due >= 0) {
+                // The clock steps aside and the screen comes up to full brightness for the azan.
+                handler.removeCallbacks(tick);
+                content.animate().cancel();
+                content.animate().alpha(0f).setDuration(800).start();
+                setScreenBright(true);
+                azan.start(ClockDream.this, prayerZone, due, reducedMotion);
+            }
+            handler.postDelayed(this, AZAN_CHECK_MS);
+        }
+    };
 
     private final Runnable tick = new Runnable() {
         @Override
@@ -51,6 +71,17 @@ public class ClockDream extends DreamService {
         setContentView(R.layout.dream_clock);
 
         content = findViewById(R.id.dreamContent);
+        Config cfg = Config.load(this);
+        if (cfg.azan && !cfg.prayerZone.isEmpty()) {
+            prayerZone = cfg.prayerZone;
+            reducedMotion = cfg.reducedMotion;
+            azan = new Azan((ViewGroup) content.getParent(), () -> {
+                setScreenBright(false);
+                content.animate().alpha(1f).setDuration(1200).start();
+                handler.removeCallbacks(tick);
+                handler.postDelayed(tick, MOVE_MS);
+            });
+        }
         face = new ClockFace(this);
         ((ViewGroup) content).addView(face, 0, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -111,11 +142,14 @@ public class ClockDream extends DreamService {
         });
         face.start();
         handler.postDelayed(tick, MOVE_MS);
+        if (azan != null) handler.post(azanCheck);
     }
 
     @Override
     public void onDreamingStopped() {
         handler.removeCallbacks(tick);
+        handler.removeCallbacks(azanCheck);
+        if (azan != null) azan.stop();
         face.stop();
         super.onDreamingStopped();
     }
@@ -123,6 +157,8 @@ public class ClockDream extends DreamService {
     @Override
     public void onDetachedFromWindow() {
         handler.removeCallbacks(tick);
+        handler.removeCallbacks(azanCheck);
+        if (azan != null) azan.stop();
         super.onDetachedFromWindow();
     }
 

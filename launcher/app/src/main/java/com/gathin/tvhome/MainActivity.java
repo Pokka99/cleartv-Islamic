@@ -133,6 +133,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private TextView prayerRow;
     private String prayerZone;
     private boolean prayerRefreshRunning;
+    /** The azan over Home at prayer times; null when the theme turns it off or has no prayer_zone. */
+    private Azan azan;
+    private boolean azanReducedMotion;
     private String vpnApp;
     private SpringAnimation springX, springY;
     private float glassTargetX, glassTargetY;
@@ -236,6 +239,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         public void run() {
             updateShamsiDate();
             updatePrayerTimes();
+            checkAzan();
             updateWifiLabel();
             refreshPlacesIfDue();
             handler.postDelayed(this, MINUTE_MS);
@@ -306,6 +310,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         }
         prayerRow = findViewById(R.id.prayerRow);
         prayerZone = cfg.prayerZone;
+        if (cfg.azan && !prayerZone.isEmpty()) {
+            azan = new Azan(root, () -> {
+                View f = getCurrentFocus();
+                if (f != null) f.requestFocus();
+            });
+            azanReducedMotion = cfg.reducedMotion;
+        }
         // Beside the clock, the date sits on the digits' baseline, and AM/PM rests halfway between
         // the top of the digits and the top of the date, its letters' foot on that line.
         TextView clock = findViewById(R.id.clock), amPm = findViewById(R.id.ampm), dateLine = findViewById(R.id.date);
@@ -677,6 +688,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         reloadApps(true);
         updateShamsiDate();
         updatePrayerTimes();
+        checkAzan();
         updateWifiLabel();
         updateInputsButton();
         startWallpaperRotation();
@@ -768,6 +780,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         unregisterReceiver(packageReceiver);
         handler.removeCallbacks(minuteTick);
         handler.removeCallbacks(wallTick);
+        if (azan != null) azan.stop();
         // Nothing of ours stays on screen over another app; an undecided prompt simply returns next time.
         if (cardPrompt != null) cardPrompt.dismiss();
         if (openPopup != null) openPopup.dismiss();
@@ -1377,6 +1390,12 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         int code = event.getKeyCode();
+        // Any button ends the azan; the press does nothing else.
+        if (azan != null && azan.showing() && event.getAction() == KeyEvent.ACTION_DOWN) {
+            azan.stop();
+            swallowRelease = code;
+            return true;
+        }
         if (code == swallowRelease && event.getAction() == KeyEvent.ACTION_UP) {
             swallowRelease = -1;
             return true;
@@ -1468,6 +1487,16 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     private void updateShamsiDate() {
         if (shamsi) shamsiDate.setText(Shamsi.today());
+    }
+
+    /**
+     * Starts the azan when a prayer time has come, if Home is what is on screen. Under the
+     * screensaver Home has no window focus, and the screensaver gives the azan itself.
+     */
+    private void checkAzan() {
+        if (azan == null || azan.showing() || !hasWindowFocus()) return;
+        int due = Azan.takeDue(this, prayerZone);
+        if (due >= 0) azan.start(this, prayerZone, due, azanReducedMotion);
     }
 
     /**

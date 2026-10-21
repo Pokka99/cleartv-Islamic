@@ -55,6 +55,10 @@
     <!-- JAKIM e-Solat zone (e.g. TRG04 for Kemaman and Dungun, WLY01 for Kuala Lumpur) for the prayer
          times under the clock. Empty: no prayer times, and no request to e-Solat. -->
     <string name="prayer_zone" translatable="false"></string>
+
+    <!-- At each prayer time, the azan screen, with azan.mp3 (azan-subuh.mp3 for Subuh) from the theme
+         folder when it has one. Only with a prayer_zone. -->
+    <bool name="azan">true</bool>
     <!-- Optional VPN app the network pill opens (hold the pill for Wi-Fi settings), e.g. the package of the
          VPN you use. Empty: the pill opens Wi-Fi settings. The green VPN badge shows for any VPN either way;
          with an app set here, a red "VPN off" badge also shows while no VPN is up. -->
