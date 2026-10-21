@@ -62,10 +62,12 @@ Masjidil Haram (Saudipics.com, CC BY-SA 4.0) dan Masjid Jame' Asr Hassanil Bolki
 
 | | |
 |---|---|
-| ![Home with Mount Sneffels behind the apps, its name, country and story above the glass dock](docs/screenshots/home.jpg) | ![The app grid scrolled down over the Chauvet cave, rows feathering out under the top bar](docs/screenshots/grid.jpg) |
-| *Home, with this week's place* | *Every app, feathering out under the top bar* |
-| ![The glass Inputs menu with HDMI 1 selected](docs/screenshots/inputs.jpg) | ![The clock screensaver: a grey analog dial, the time and the date](docs/screenshots/clock.jpg) |
-| *Inputs, in glass* | *The clock screensaver* |
+| ![Home dengan Masjid Quba di belakang aplikasi, waktu solat di bawah jam dan nama masjid di atas dock](docs/screenshots/islamik-home.jpg) | ![Semua aplikasi, diskrol ke bawah atas gambar masjid, waktu solat kekal di bawah jam](docs/screenshots/islamik-grid.jpg) |
+| *Home, dengan masjid dan waktu solat* | *Semua aplikasi, pudar di bawah bar atas* |
+| ![Menu Inputs kaca dengan HDMI 1 dipilih, atas gambar masjid](docs/screenshots/islamik-inputs.jpg) | ![Screensaver Islamik: jam emas, tarikh Hijri, kad waktu solat dan ayat Al-Quran atas gambar masjid](docs/screenshots/screensaver-islamik.jpg) |
+| *Inputs, dalam kaca* | *Screensaver Islamik* |
+| ![Skrin azan: bulan sabit emas dan cincin cahaya, Telah masuk waktu Maghrib](docs/screenshots/azan.jpg) | |
+| *Skrin azan pada waktu solat* | |
 
 Still light: on a Xiaomi Mi TV with 1.8 GB of RAM the launcher uses about 80–100 MB and stays there over hours
 of use, one wallpaper is in memory at a time, the week's places take about 2 MB of storage, and nothing runs
