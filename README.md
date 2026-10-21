@@ -11,9 +11,9 @@ Prophet's Mosque, the Crystal Mosque and many more. Under the clock: today's fiv
 rests: a gold clock, the Hijri date and a verse of the Quran. When the time comes: the azan.
 
 <p>
-  <img src="docs/screenshots/promo-islamik-1-home.jpg" width="32%" alt="Your TV, calm and ad-free: Home with Quba Mosque behind the apps and the prayer times under the clock">
-  <img src="docs/screenshots/promo-islamik-2-ciri.jpg" width="32%" alt="At every prayer, the TV reminds you: JAKIM prayer times, the azan, verses of the Quran and mosques of the world">
-  <img src="docs/screenshots/promo-islamik-3-screensaver.jpg" width="32%" alt="When the TV rests: the screensaver with a gold clock, the Hijri date, prayer times and a verse of the Quran">
+  <img src="docs/screenshots/promo-cleartv-1-home.jpg" width="32%" alt="Your TV, calm and ad-free: Home with Quba Mosque behind the apps and the prayer times under the clock">
+  <img src="docs/screenshots/promo-cleartv-2-ciri.jpg" width="32%" alt="At every prayer, the TV reminds you: JAKIM prayer times, the azan, verses of the Quran and mosques of the world">
+  <img src="docs/screenshots/promo-cleartv-3-screensaver.jpg" width="32%" alt="When the TV rests: the screensaver with a gold clock, the Hijri date, prayer times and a verse of the Quran">
 </p>
 
 - **JAKIM prayer times** for your zone under the clock, with the Hijri date and a countdown to the next prayer.

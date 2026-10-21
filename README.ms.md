@@ -11,9 +11,9 @@ anda: Masjidil Haram, Masjid Nabawi, Masjid Kristal dan banyak lagi. Di bawah ja
 Bila TV berehat: jam emas, tarikh Hijri dan ayat Al-Quran. Bila masuk waktu: azan.
 
 <p>
-  <img src="docs/screenshots/promo-islamik-1-home.jpg" width="32%" alt="TV anda, tenang dan tanpa iklan: Home dengan Masjid Quba di belakang aplikasi dan waktu solat di bawah jam">
-  <img src="docs/screenshots/promo-islamik-2-ciri.jpg" width="32%" alt="Setiap waktu, TV mengingatkan: waktu solat JAKIM, azan, ayat Al-Quran dan masjid di dunia">
-  <img src="docs/screenshots/promo-islamik-3-screensaver.jpg" width="32%" alt="Bila TV berehat, hati mengingati: screensaver jam emas, tarikh Hijri, waktu solat dan ayat Al-Quran">
+  <img src="docs/screenshots/promo-cleartv-1-home.jpg" width="32%" alt="TV anda, tenang dan tanpa iklan: Home dengan Masjid Quba di belakang aplikasi dan waktu solat di bawah jam">
+  <img src="docs/screenshots/promo-cleartv-2-ciri.jpg" width="32%" alt="Setiap waktu, TV mengingatkan: waktu solat JAKIM, azan, ayat Al-Quran dan masjid di dunia">
+  <img src="docs/screenshots/promo-cleartv-3-screensaver.jpg" width="32%" alt="Bila TV berehat, hati mengingati: screensaver jam emas, tarikh Hijri, waktu solat dan ayat Al-Quran">
 </p>
 
 **Baru pertama kali? Ikut [panduan pemasangan langkah demi langkah](docs/INSTALL.ms.md)**: tanpa coding, tanpa
