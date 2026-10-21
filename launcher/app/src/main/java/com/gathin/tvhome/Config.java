@@ -68,6 +68,8 @@ final class Config {
     final String prayerZone;
     /** The azan screen (and azan.mp3, if the theme has one) at each prayer time; needs prayerZone. */
     final boolean azan;
+    /** The theme's mosque photos (Masjid) behind Home instead of the week's places, when it has them. */
+    final boolean masjidHome;
     /** Whether the overlay file was present and parsed. */
     final boolean overlayApplied;
 
@@ -78,7 +80,7 @@ final class Config {
                    boolean showHomeSettingsShortcut, boolean showNetworkPill, boolean showLiveTv,
                    int backgroundColor,
                    File wallpaper, List<File> wallpapers, long wallpaperIntervalMs,
-                   boolean places, int cacheCleanDays, String prayerZone, boolean azan, boolean overlayApplied) {
+                   boolean places, int cacheCleanDays, String prayerZone, boolean azan, boolean masjidHome, boolean overlayApplied) {
         this.dockApps = Collections.unmodifiableList(dockApps);
         this.hiddenApps = Collections.unmodifiableList(hiddenApps);
         this.liveTvPackage = liveTvPackage;
@@ -103,6 +105,7 @@ final class Config {
         this.cacheCleanDays = cacheCleanDays;
         this.prayerZone = prayerZone;
         this.azan = azan;
+        this.masjidHome = masjidHome;
         this.overlayApplied = overlayApplied;
     }
 
@@ -131,6 +134,7 @@ final class Config {
         boolean liveTvRow = res.getBoolean(R.bool.show_live_tv);
         String prayerZone = res.getString(R.string.prayer_zone).trim();
         boolean azan = res.getBoolean(R.bool.azan);
+        boolean masjidHome = true;
         int background = 0xFF000000;
         boolean applied = false;
 
@@ -157,6 +161,7 @@ final class Config {
             liveTvRow = bool(json, "show_live_tv", liveTvRow);
             prayerZone = string(json, "prayer_zone", prayerZone);
             azan = bool(json, "azan", azan);
+            masjidHome = bool(json, "masjid_home", masjidHome);
             background = color(json, "background_color", background);
         }
         File wallpaper = dir != null ? new File(dir, WALLPAPER_NAME) : null;
@@ -184,7 +189,7 @@ final class Config {
         return new Config(dock, hidden, liveTv, liveTvAction, panelService, panelAction, inputAction,
                 Math.max(1, columns), Math.max(0, rowsBelow), shamsi, moduleCards, reducedMotion,
                 vpn, homeSettings, networkPill, liveTvRow, background, wallpaper, wallpapers, wallpaperIntervalMs,
-                places, cacheCleanDays, prayerZone.toUpperCase(java.util.Locale.ROOT), azan, applied);
+                places, cacheCleanDays, prayerZone.toUpperCase(java.util.Locale.ROOT), azan, masjidHome, applied);
     }
 
     /** Reads and parses the overlay; any problem means "no overlay", never a crash on the home screen. */

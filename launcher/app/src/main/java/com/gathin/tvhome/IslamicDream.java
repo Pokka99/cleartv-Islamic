@@ -264,24 +264,9 @@ final class IslamicDream {
     }
 
     private void loadPhotos(android.service.dreams.DreamService dream, ViewGroup root) {
-        java.io.File base = Config.dir(dream);
-        java.io.File dir = base != null ? new java.io.File(base, "masjid") : null;
-        java.io.File[] files = dir != null ? dir.listFiles() : null;
-        if (files == null) return;
-        for (java.io.File f : files) {
-            String n = f.getName().toLowerCase(java.util.Locale.ROOT);
-            if (f.isFile() && f.length() > 0 && (n.endsWith(".jpg") || n.endsWith(".jpeg"))) photos.add(f);
-        }
+        photos.addAll(Masjid.list(dream));
         if (photos.isEmpty()) return;
-        java.util.Collections.sort(photos);
-        try (InputStream in = new java.io.FileInputStream(new java.io.File(dir, "captions.json"))) {
-            byte[] buf = new byte[64 * 1024];
-            int n = 0, r;
-            while (n < buf.length && (r = in.read(buf, n, buf.length - n)) > 0) n += r;
-            photoCaptions = new JSONObject(new String(buf, 0, n, StandardCharsets.UTF_8));
-        } catch (Exception e) {
-            Log.i(TAG, "no photo captions: " + e.getMessage());
-        }
+        photoCaptions = Masjid.captions(Masjid.dir(dream));
         photoIndex = random.nextInt(photos.size()) - 1;
         // The photos take the lattice's place: a photo, darkened so the gold text stays readable.
         pattern.setVisibility(View.GONE);

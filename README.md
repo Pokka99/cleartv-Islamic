@@ -102,6 +102,8 @@ clears their caches, leaving sign-ins and app data untouched.
   bersama ayat, dengan nama masjid dan kredit jurugambar di penjuru. Semua dari Wikimedia Commons dengan lesen
   bebas; senarainya di [themes/islamik/masjid.json](themes/islamik/masjid.json). Muat turun ke folder theme
   anda dengan `python3 tools/masjid-photos.py <folder theme>`.
+  Gambar yang sama juga menjadi latar Home, menggantikan gambar tempat mingguan, dengan nama masjid di atas
+  dock (`"masjid_home": false` untuk kembali ke gambar tempat).
 - **Azan:** pada setiap waktu solat, sama ada TV di screensaver jam atau di Home, skrin azan penuh keluar
   dan `azan.mp3` dimainkan (`azan-subuh.mp3` untuk Subuh). Tekan apa-apa butang remote untuk hentikan. Tidak
   mengganggu bila sedang menonton aplikasi lain.

@@ -187,6 +187,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private Config config;
     /** Pictures of places are on (see PlaceWallpapers); they are dimmed behind the tiles. */
     private boolean placesMode;
+    /** Mosque photos (Masjid) in the places' stead: the same dimming and shelf, the theme's own captions. */
+    private boolean masjidMode;
+    private org.json.JSONObject masjidCaptions;
     private volatile boolean placesRefreshRunning;
     /** Refreshes the network pill when the connection changes: at boot Wi-Fi often connects after Home is shown. */
     private final ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback() {
@@ -275,7 +278,15 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         placesMode = cfg.places;
         // Places only, when they are on: never the theme's own pictures, even before the first
         // week's places have arrived.
-        if (placesMode) wallpapers = PlaceWallpapers.list(this);
+        List<File> masjid = cfg.masjidHome ? Masjid.list(this) : Collections.emptyList();
+        if (!masjid.isEmpty()) {
+            masjidMode = true;
+            placesMode = true;
+            masjidCaptions = Masjid.captions(Masjid.dir(this));
+            wallpapers = masjid;
+        } else if (placesMode) {
+            wallpapers = PlaceWallpapers.list(this);
+        }
         if (!wallpapers.isEmpty()) showNextWallpaper(false);
         else if (cfg.wallpaper != null && !placesMode) setWallpaper(decodeWallpaper(cfg.wallpaper), false);
         glass = findViewById(R.id.glass);
@@ -610,7 +621,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     /** Fetches the week's places in the background, then switches the rotation to them. */
     private void refreshPlacesIfDue() {
-        if (!placesMode || placesRefreshRunning || !PlaceWallpapers.due(this)) return;
+        if (!placesMode || masjidMode || placesRefreshRunning || !PlaceWallpapers.due(this)) return;
         placesRefreshRunning = true;
         new Thread(() -> {
             boolean changed = PlaceWallpapers.refresh(getApplicationContext());
@@ -1063,7 +1074,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
      * changes, so the words and the picture never disagree.
      */
     private void setPlace(File picture) {
-        String[] about = placesMode ? PlaceWallpapers.describe(picture) : null;
+        String[] about = masjidMode ? Masjid.describe(picture, masjidCaptions)
+                : placesMode ? PlaceWallpapers.describe(picture) : null;
         String title = about != null ? titleCase(about[0]) : null;
         String overview = about != null ? about[1] : "";
         String country = about != null && about.length > 2 ? about[2] : "";

@@ -33,6 +33,7 @@ is ignored, and a file that doesn't parse is ignored as a whole, so a theme can 
 | `shamsi_date` | bool | Show the Solar Hijri date above the Gregorian one |
 | `prayer_zone` | string | JAKIM e-Solat zone (e.g. `TRG04`, `WLY01`) for today's five prayer times, the Hijri date and a countdown to the next prayer in a row under the clock. The year's times are fetched once from e-solat.gov.my; empty (the default) shows nothing and fetches nothing |
 | `azan` | bool | With a `prayer_zone`: at each prayer time, a full-screen azan screen (a gold crescent with rings of light) over the screensaver or Home, playing `azan.mp3` from the theme folder (`azan-subuh.mp3` for Subuh, if present) or silent for 90 seconds without one. Any button ends it. Default `true` |
+| `masjid_home` | bool | When the theme has mosque photos in `masjid/` (`tools/masjid-photos.py`), show them behind Home instead of the week's places, named on the shelf above the dock with their photographer's credit. Default `true` |
 | `module_cards` | bool | Look for module cards and ask about them (`true`); `false` turns the feature off |
 | `reduced_motion` | bool | Calmer motion for weak GPUs: stiff highlight spring, no tile overshoot, short fades, no entrance replay |
 | `vpn_app` | string | App the network pill opens when a VPN is configured; also shows a red "VPN off" badge while no VPN is up |
