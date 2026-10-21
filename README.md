@@ -135,9 +135,9 @@ clears their caches, leaving sign-ins and app data untouched.
 ```
 
 Change `TRG04` to your JAKIM zone (for example `WLY01` Kuala Lumpur, `SGR01` Petaling and Gombak, `JHR02` Johor
-Bahru; the full list is on the e-Solat site). Put your own azan recordings in the same folder as `azan.mp3` and,
-optionally, `azan-subuh.mp3`. No audio is included in this repository: use recordings you have the right to use.
-Then send it to the TV:
+Bahru; the full list is on the e-Solat site). [themes/islamik](themes/islamik) comes with an azan (`azan.mp3`, by
+Ustaz Asri Ibrahim of Rabbani) and a Subuh azan (`azan-subuh.mp3`); replace either with a recording of your own,
+keeping the name. Then send it to the TV:
 
 ```bash
 python3 tools/masjid-photos.py <theme folder>      # mosque photos (optional)
@@ -189,3 +189,6 @@ online.
 - Prayer times from JAKIM's [e-Solat](https://www.e-solat.gov.my). Quran text (Uthmani, Hafs) and the Kemenag RI
   translation via [quran.com](https://quran.com). Mosque photos from Wikimedia Commons, each credited on screen and
   in [themes/islamik/masjid.json](themes/islamik/masjid.json).
+- The azan recordings in [themes/islamik](themes/islamik): Ustaz Asri Ibrahim (Rabbani), and "Adzan Subuh Merdu".
+  The repository owner states they are free to share; a rights holder who disagrees can open an issue and they
+  will be removed.

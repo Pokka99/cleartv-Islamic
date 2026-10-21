@@ -151,10 +151,11 @@ Kalau ada apa-apa yang tidak kena, skrip ini sendiri akan pulangkan skrin utama 
    `"dock_apps": ["com.google.android.youtube.tv", "com.netflix.ninja", "com.tm.unifitv", "com.amazon.amazonvideo.livingroom"],`
    Anda juga boleh susun aplikasi kemudian dengan remote: tekan lama **OK** pada aplikasi, pilih **Move**.
 
-### 12. Letak azan anda (pilihan)
+### 12. Pilih azan anda (pilihan)
 
-Salin rakaman azan ke dalam `theme-saya` dan namakan tepat **`azan.mp3`**. Untuk azan Subuh yang berlainan,
-tambah juga **`azan-subuh.mp3`**. Tanpa fail ini, skrin azan tetap keluar, tetapi senyap.
+`theme-saya` sudah ada azan: **`azan.mp3`** (Ustaz Asri Ibrahim, Rabbani) untuk Zohor, Asar, Maghrib dan
+Isyak, dan **`azan-subuh.mp3`** untuk Subuh. Untuk suara lain, gantikan fail itu dengan rakaman anda sendiri,
+dengan nama yang sama tepat.
 
 ### 13. Tambah gambar masjid (pilihan)
 

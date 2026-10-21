@@ -92,8 +92,9 @@ Folder theme ialah folder dengan `config.json` ([themes/islamik](themes/islamik/
 - `azan`: `false` mematikan azan.
 - `masjid_home`: `false` untuk kembali ke gambar tempat mingguan dari Bing di Home.
 - `dock_apps`: empat aplikasi di dock, ikut susunan.
-- `azan.mp3` dan `azan-subuh.mp3` dalam folder yang sama: suara azan. Tiada audio disertakan dalam repositori
-  ini: gunakan rakaman yang anda berhak gunakan. Tanpanya, skrin azan keluar senyap selama 90 saat.
+- `azan.mp3` dan `azan-subuh.mp3` dalam folder yang sama: suara azan. [themes/islamik](themes/islamik) sudah ada
+  azan Ustaz Asri Ibrahim (Rabbani) dan azan Subuh; gantikan dengan rakaman anda sendiri jika mahu, dengan nama
+  yang sama. Tanpa fail ini, skrin azan keluar senyap selama 90 saat.
 - `masjid/`: gambar masjid, dimuat turun oleh `tools/masjid-photos.py`.
 
 Semua tetapan lain ada dalam [themes/README.md](themes/README.md) (bahasa Inggeris).
@@ -117,5 +118,8 @@ NVIDIA Shield) ke port HDMI.
   [themes/islamik/masjid.json](themes/islamik/masjid.json). Gambar promo menggunakan foto Masjid Quba (Muhammad
   Mahdi Karim, GFDL 1.2), Masjidil Haram (Saudipics.com, CC BY-SA 4.0) dan Masjid Jame' Asr Hassanil Bolkiah
   (Jorge Láscar, CC BY 2.0).
+- Rakaman azan dalam [themes/islamik](themes/islamik): Ustaz Asri Ibrahim (Rabbani), dan "Adzan Subuh Merdu".
+  Pemilik repositori menyatakan ia bebas dikongsi; pemilik hak yang tidak bersetuju boleh membuka issue dan
+  fail akan dibuang.
 - Huruf Outfit di bawah SIL Open Font License (`launcher/FONT-LICENSE-OFL.txt`). Ikon Inputs dari Material Icons
   Google (Apache 2.0).

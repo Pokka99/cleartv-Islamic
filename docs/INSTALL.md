@@ -148,10 +148,11 @@ If anything goes wrong, the script puts the TV's own home screen back by itself 
    `"dock_apps": ["com.google.android.youtube.tv", "com.netflix.ninja", "com.tm.unifitv", "com.amazon.amazonvideo.livingroom"],`
    You can also arrange the apps later with the remote: hold **OK** on an app, choose **Move**.
 
-### 12. Add your azan (optional)
+### 12. Choose your azan (optional)
 
-Copy your azan recording into `my-theme` and name it exactly **`azan.mp3`**. For a different azan at Subuh, add
-**`azan-subuh.mp3`** too. Without them the azan screen still shows, silently.
+`my-theme` already has an azan: **`azan.mp3`** (Ustaz Asri Ibrahim, Rabbani) for Zohor, Asar, Maghrib and
+Isyak, and **`azan-subuh.mp3`** for Subuh. To use another voice, replace either file with your own recording,
+keeping exactly the same name.
 
 ### 13. Add the mosque photos (optional)
 
