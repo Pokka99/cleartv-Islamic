@@ -219,6 +219,33 @@
                     android:drawableStart="@drawable/ic_settings"
                     android:nextFocusDown="@+id/grid" />
             </LinearLayout>
+
+            <!-- Today's prayer times from JAKIM e-Solat, shown when a theme sets prayer_zone. Never
+                 focused, so the D-pad goes from the top bar to the apps as before. -->
+            <TextView
+                android:id="@+id/prayerRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/leftBlock"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="12dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:background="@drawable/prayer_bg"
+                android:gravity="left|center_vertical"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textColor="#B3FFFFFF"
+                android:textSize="15sp"
+                android:fontFamily="@font/outfit"
+                android:fontVariationSettings="'wght' 400"
+                android:letterSpacing="0.01"
+                android:includeFontPadding="false"
+                android:focusable="false"
+                android:importantForAccessibility="yes"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <!-- The wrapper clips at the grid's edge; the grid itself must not clip so scaled tiles can overflow their cells. -->

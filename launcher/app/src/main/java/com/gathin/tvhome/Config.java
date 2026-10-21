@@ -64,6 +64,8 @@ final class Config {
     final boolean places;
     /** Days between clearing the TV's app caches (see CacheCleaner); 0 never does. */
     final int cacheCleanDays;
+    /** JAKIM e-Solat zone for the prayer times under the clock ("TRG04"); empty hides them. */
+    final String prayerZone;
     /** Whether the overlay file was present and parsed. */
     final boolean overlayApplied;
 
@@ -74,7 +76,7 @@ final class Config {
                    boolean showHomeSettingsShortcut, boolean showNetworkPill, boolean showLiveTv,
                    int backgroundColor,
                    File wallpaper, List<File> wallpapers, long wallpaperIntervalMs,
-                   boolean places, int cacheCleanDays, boolean overlayApplied) {
+                   boolean places, int cacheCleanDays, String prayerZone, boolean overlayApplied) {
         this.dockApps = Collections.unmodifiableList(dockApps);
         this.hiddenApps = Collections.unmodifiableList(hiddenApps);
         this.liveTvPackage = liveTvPackage;
@@ -97,6 +99,7 @@ final class Config {
         this.wallpaperIntervalMs = wallpaperIntervalMs;
         this.places = places;
         this.cacheCleanDays = cacheCleanDays;
+        this.prayerZone = prayerZone;
         this.overlayApplied = overlayApplied;
     }
 
@@ -123,6 +126,7 @@ final class Config {
         boolean homeSettings = res.getBoolean(R.bool.show_home_settings_shortcut);
         boolean networkPill = res.getBoolean(R.bool.show_network_pill);
         boolean liveTvRow = res.getBoolean(R.bool.show_live_tv);
+        String prayerZone = res.getString(R.string.prayer_zone).trim();
         int background = 0xFF000000;
         boolean applied = false;
 
@@ -147,6 +151,7 @@ final class Config {
             homeSettings = bool(json, "show_home_settings_shortcut", homeSettings);
             networkPill = bool(json, "show_network_pill", networkPill);
             liveTvRow = bool(json, "show_live_tv", liveTvRow);
+            prayerZone = string(json, "prayer_zone", prayerZone);
             background = color(json, "background_color", background);
         }
         File wallpaper = dir != null ? new File(dir, WALLPAPER_NAME) : null;
@@ -174,7 +179,7 @@ final class Config {
         return new Config(dock, hidden, liveTv, liveTvAction, panelService, panelAction, inputAction,
                 Math.max(1, columns), Math.max(0, rowsBelow), shamsi, moduleCards, reducedMotion,
                 vpn, homeSettings, networkPill, liveTvRow, background, wallpaper, wallpapers, wallpaperIntervalMs,
-                places, cacheCleanDays, applied);
+                places, cacheCleanDays, prayerZone.toUpperCase(java.util.Locale.ROOT), applied);
     }
 
     /** Reads and parses the overlay; any problem means "no overlay", never a crash on the home screen. */

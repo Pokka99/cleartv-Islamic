@@ -129,6 +129,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private TextView btnWifi;
     private TextView shamsiDate;
     private boolean shamsi;
+    /** Today's prayer times under the clock (PrayerTimes); hidden while prayerZone is empty. */
+    private TextView prayerRow;
+    private String prayerZone;
+    private boolean prayerRefreshRunning;
     private String vpnApp;
     private SpringAnimation springX, springY;
     private float glassTargetX, glassTargetY;
@@ -231,6 +235,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         @Override
         public void run() {
             updateShamsiDate();
+            updatePrayerTimes();
             updateWifiLabel();
             refreshPlacesIfDue();
             handler.postDelayed(this, MINUTE_MS);
@@ -299,6 +304,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             date.setTextSize(11f);
             date.setPadding(0, (int) (4 * density), 0, 0);
         }
+        prayerRow = findViewById(R.id.prayerRow);
+        prayerZone = cfg.prayerZone;
         // Beside the clock, the date sits on the digits' baseline, and AM/PM rests halfway between
         // the top of the digits and the top of the date, its letters' foot on that line.
         TextView clock = findViewById(R.id.clock), amPm = findViewById(R.id.ampm), dateLine = findViewById(R.id.date);
@@ -669,6 +676,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         resuming = true;
         reloadApps(true);
         updateShamsiDate();
+        updatePrayerTimes();
         updateWifiLabel();
         updateInputsButton();
         startWallpaperRotation();
@@ -1460,6 +1468,67 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     private void updateShamsiDate() {
         if (shamsi) shamsiDate.setText(Shamsi.today());
+    }
+
+    /**
+     * Today's five prayer times, the next one bright with how long until it. Fetches the year from
+     * e-Solat in the background when today is not on disk yet; until then the row stays hidden.
+     */
+    private void updatePrayerTimes() {
+        if (prayerZone == null || prayerZone.isEmpty()) return;
+        java.util.Calendar now = java.util.Calendar.getInstance();
+        String todayKey = PrayerTimes.key(now);
+        PrayerTimes.Day today = PrayerTimes.day(this, prayerZone, todayKey);
+        if (today == null) {
+            prayerRow.setVisibility(View.GONE);
+            if (!prayerRefreshRunning && PrayerTimes.due(this, prayerZone, todayKey)) {
+                prayerRefreshRunning = true;
+                final String zone = prayerZone;
+                new Thread(() -> {
+                    boolean ok = PrayerTimes.refresh(getApplicationContext(), zone);
+                    handler.post(() -> {
+                        prayerRefreshRunning = false;
+                        if (ok && !isDestroyed()) updatePrayerTimes();
+                    });
+                }, "prayer-times").start();
+            }
+            return;
+        }
+        int nowMin = now.get(java.util.Calendar.HOUR_OF_DAY) * 60 + now.get(java.util.Calendar.MINUTE);
+        int next = PrayerTimes.next(today.minutes, nowMin);
+        int left;
+        if (next >= 0) {
+            left = today.minutes[next] - nowMin;
+        } else {
+            // After Isyak, the next is tomorrow's Subuh.
+            java.util.Calendar t = (java.util.Calendar) now.clone();
+            t.add(java.util.Calendar.DAY_OF_MONTH, 1);
+            PrayerTimes.Day tomorrow = PrayerTimes.day(this, prayerZone, PrayerTimes.key(t));
+            left = 24 * 60 - nowMin + (tomorrow != null ? tomorrow : today).minutes[0];
+        }
+        boolean is24 = android.text.format.DateFormat.is24HourFormat(this);
+        int bright = 0xFFFFFFFF, dim = 0x80FFFFFF;
+        android.text.SpannableStringBuilder b = new android.text.SpannableStringBuilder();
+        if (!today.hijri.isEmpty()) {
+            b.append(today.hijri);
+            b.setSpan(new android.text.style.ForegroundColorSpan(dim), 0, b.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            b.append("     ");
+        }
+        for (int i = 0; i < today.minutes.length; i++) {
+            if (i > 0) b.append("    ");
+            int start = b.length();
+            b.append(PrayerTimes.NAMES[i]).append("  ").append(PrayerTimes.format(today.minutes[i], is24));
+            if (i == next) {
+                b.setSpan(new android.text.style.ForegroundColorSpan(bright), start, b.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                b.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), start, b.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+        }
+        b.append("     ");
+        int start = b.length();
+        b.append(PrayerTimes.NAMES[next >= 0 ? next : 0]).append(" ").append(PrayerTimes.countdown(left));
+        b.setSpan(new android.text.style.ForegroundColorSpan(bright), start, b.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        prayerRow.setText(b);
+        prayerRow.setVisibility(View.VISIBLE);
     }
 
     /** Shows the Wi-Fi network name on the button when we can read it, otherwise the connection type. */
