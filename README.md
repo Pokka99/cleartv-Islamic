@@ -1,11 +1,11 @@
-# Glass TV Islamic
+# Clear TV Islamic
 
 <p><a href="README.ms.md">Bahasa Melayu</a> · <b>English</b> · <a href="docs/INSTALL.md">Step-by-step install guide</a> · <a href="docs/INSTALL.ms.md">Panduan pemasangan</a></p>
 
 **Your Android TV or Google TV, fast and ad-free, with JAKIM prayer times, the azan at every prayer, verses of
 the Quran, and the world's most beautiful mosques behind your apps, Mecca and Medina among them.**
 
-Glass TV Islamic strips the bloat and ads from your TV over Wi-Fi, with no root and nothing that can't be undone,
+Clear TV Islamic strips the bloat and ads from your TV over Wi-Fi, with no root and nothing that can't be undone,
 then swaps the ad-filled home screen for a light one in frosted glass. Behind your apps: Masjid al-Haram, the
 Prophet's Mosque, the Crystal Mosque and many more. Under the clock: today's five prayer times. When the TV
 rests: a gold clock, the Hijri date and a verse of the Quran. When the time comes: the azan.
@@ -78,7 +78,7 @@ while you are inside an app.
 ## Setting it up
 
 **The easy way, with no coding:** the [step-by-step install guide](docs/INSTALL.md) installs the ready-made
-`dist/glass-tv-islamik.apk`, so you need only Python, not Java or the Android SDK.
+`dist/clear-tv-islamic.apk`, so you need only Python, not Java or the Android SDK.
 
 **Using an AI coding agent** (Claude Code, Codex, Cursor, Copilot…)? Point it at this repository and ask it to
 set up your TV. [AGENTS.md](AGENTS.md) tells any agent, even a small model, how to do it safely on any Android TV or Google
@@ -95,11 +95,11 @@ python3 -m venv tools/venv && tools/venv/bin/pip install -r tools/requirements.t
 export TV_HOST=192.168.1.50                                   # your TV's IP address
 tools/disable.sh examples/<your tv>/debloat.txt               # debloat
 launcher/build-and-install.sh                                 # build the launcher and make it Home
-# or, without building: APK=dist/glass-tv-islamik.apk launcher/build-and-install.sh
+# or, without building: APK=dist/clear-tv-islamic.apk launcher/build-and-install.sh
 tools/theme.sh themes/<your theme>                            # push your settings and wallpapers
 ```
 
-Glass TV clears the TV's caches by itself every 15 days ([how](docs/cache-clean.md)). To clean several TVs
+Clear TV Islamic clears the TV's caches by itself every 15 days ([how](docs/cache-clean.md)). To clean several TVs
 from one computer instead, [`tools/cache-clean.sh`](docs/cache-clean.md) finds the TVs on your network and
 clears their caches, leaving sign-ins and app data untouched.
 
@@ -156,8 +156,8 @@ Glass TV, with the original launcher, or debloat only, plus what is expected to 
 ## LG and Samsung TVs
 
 LG TVs run webOS and Samsung TVs run Tizen; neither can run Android apps, and neither lets any app replace its
-home screen or the Home button. For the full Glass TV, plug in a Google TV or Android TV box (Chromecast with
-Google TV, Xiaomi Mi Box, NVIDIA Shield): the TV becomes the screen and Glass TV is Home. On LG, a version you
+home screen or the Home button. For the full Clear TV Islamic, plug in a Google TV or Android TV box (Chromecast with
+Google TV, Xiaomi Mi Box, NVIDIA Shield): the TV becomes the screen and Clear TV Islamic is Home. On LG, a version you
 open as an app is in preview in [webos/](webos/README.md).
 
 ## Places, or pictures of your own
@@ -185,7 +185,7 @@ online.
 - Pictures of places and their captions are Bing's daily images (Microsoft). The launcher fetches them on your
   own TV; the promo pictures above show three of them.
 - Gotham, used in the original promo pictures only, is a Hoefler&Co. typeface and is not part of this repository.
-- Glass TV Islamic is a fork of [Glass TV](https://github.com/cocombee/glass-tv) by cocombee (MIT).
+- Clear TV Islamic is a fork of [Glass TV](https://github.com/cocombee/glass-tv) by cocombee (MIT).
 - Prayer times from JAKIM's [e-Solat](https://www.e-solat.gov.my). Quran text (Uthmani, Hafs) and the Kemenag RI
   translation via [quran.com](https://quran.com). Mosque photos from Wikimedia Commons, each credited on screen and
   in [themes/islamik/masjid.json](themes/islamik/masjid.json).

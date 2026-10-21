@@ -14,7 +14,7 @@ import time
 import urllib.parse
 import urllib.request
 
-UA = {"User-Agent": "glass-tv-islamic/1.0 (TV screensaver; https://github.com/Pokka99/glass-tv-Islamic)"}
+UA = {"User-Agent": "clear-tv-islamic/1.0 (TV screensaver; https://github.com/Pokka99/cleartv-Islamic)"}
 
 
 def fetch(url):

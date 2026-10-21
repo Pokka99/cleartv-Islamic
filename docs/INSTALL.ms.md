@@ -1,4 +1,4 @@
-# Memasang Glass TV Islamik, langkah demi langkah
+# Memasang Clear TV Islamic, langkah demi langkah
 
 <p><a href="INSTALL.md">English</a> · <b>Bahasa Melayu</b> · <a href="../README.ms.md">Kembali ke README</a></p>
 
@@ -23,7 +23,7 @@ Windows ditunjukkan berasingan: guna yang sesuai dengan komputer anda.
 ### 1. Pastikan TV anda Android TV
 
 Di TV: **Settings → Device Preferences → About**. Cari **Android TV OS version**: mesti **8 atau lebih**. Kalau
-tiada perkataan "Android TV" langsung, TV anda tidak boleh pasang Glass TV; tetapi sebatang Google TV stick di
+tiada perkataan "Android TV" langsung, TV anda tidak boleh pasang Clear TV Islamic; tetapi sebatang Google TV stick di
 port HDMI boleh.
 
 ### 2. Hidupkan Developer options dan USB debugging
@@ -55,19 +55,19 @@ titik bertindih.
 - **Windows:** pasang dari [python.org/downloads](https://www.python.org/downloads/). Di skrin pertama
   pemasang, **tandakan "Add python.exe to PATH"**.
 
-### 5. Muat turun Glass TV Islamik
+### 5. Muat turun Clear TV Islamic
 
-1. Buka [github.com/Pokka99/glass-tv-Islamic](https://github.com/Pokka99/glass-tv-Islamic).
+1. Buka [github.com/Pokka99/cleartv-Islamic](https://github.com/Pokka99/cleartv-Islamic).
 2. Tekan butang hijau **Code**, kemudian **Download ZIP**.
-3. Unzip ke folder **Documents**. Sekarang ada folder bernama `glass-tv-Islamic-main`.
+3. Unzip ke folder **Documents**. Sekarang ada folder bernama `cleartv-Islamic-main`.
 
 ### 6. Buka terminal dalam folder itu
 
 - **Mac:** dalam Terminal, taip:
   ```bash
-  cd ~/Documents/glass-tv-Islamic-main
+  cd ~/Documents/cleartv-Islamic-main
   ```
-- **Windows:** buka folder `glass-tv-Islamic-main` dalam File Explorer, klik bar alamat, taip `powershell` dan
+- **Windows:** buka folder `cleartv-Islamic-main` dalam File Explorer, klik bar alamat, taip `powershell` dan
   tekan Enter. Kemudian benarkan skrip berjalan dalam tetingkap ini:
   ```powershell
   Set-ExecutionPolicy -Scope Process Bypass
@@ -114,27 +114,27 @@ Kalau keluar *timeout* atau *connection refused*, USB debugging belum hidup atau
 
 ---
 
-## Bahagian 3: pasang Glass TV Islamik
+## Bahagian 3: pasang Clear TV Islamic
 
 ### 10. Pasang dan jadikan skrin utama
 
 - **Mac:**
   ```bash
-  APK=dist/glass-tv-islamik.apk launcher/build-and-install.sh
+  APK=dist/clear-tv-islamic.apk launcher/build-and-install.sh
   ```
 - **Windows:**
   ```powershell
-  launcher\build-and-install.ps1 -Apk dist\glass-tv-islamik.apk
+  launcher\build-and-install.ps1 -Apk dist\clear-tv-islamic.apk
   ```
 
 Skrin TV akan bertukar beberapa kali. Ia selesai bila keluar
-**`Installed. Press Home on the remote to see it.`** Tekan **Home** pada remote: Glass TV kini skrin utama anda.
+**`Installed. Press Home on the remote to see it.`** Tekan **Home** pada remote: Clear TV Islamic kini skrin utama anda.
 
 Kalau ada apa-apa yang tidak kena, skrip ini sendiri akan pulangkan skrin utama asal TV dan beritahu sebabnya.
 
 ### 11. Buat tetapan anda sendiri ("theme")
 
-1. Salin folder `themes/islamik` dan namakan salinannya `theme-saya` (dalam folder `glass-tv-Islamic-main`
+1. Salin folder `themes/islamik` dan namakan salinannya `theme-saya` (dalam folder `cleartv-Islamic-main`
    yang sama).
 2. Buka `theme-saya/config.json` dengan editor teks (TextEdit di Mac, Notepad di Windows). Rupanya begini:
    ```json
@@ -182,7 +182,7 @@ Sekarang, bila TV berehat, jam emas, waktu solat dan ayat Al-Quran keluar atas g
 
 ### 16. Biar TV bersihkan dirinya sendiri (pilihan)
 
-Setiap 15 hari Glass TV membuang fail sisa aplikasi. Ia minta kebenaran TV sekali sahaja. Dengan seseorang di
+Setiap 15 hari Clear TV Islamic membuang fail sisa aplikasi. Ia minta kebenaran TV sekali sahaja. Dengan seseorang di
 depan TV, jalankan:
 
 - **Mac:** `tools/venv/bin/python -I tools/tv.py 'touch /sdcard/Android/data/com.gathin.tvhome/files/clean-now'`
@@ -225,6 +225,6 @@ seperti Claude Code boleh buatkan bersama anda dengan selamat: lihat [AGENTS.md]
 | Windows kata skrip disekat | Jalankan `Set-ExecutionPolicy -Scope Process Bypass` dalam tetingkap yang sama (langkah 6). |
 | Tiada waktu solat di bawah jam | Semak `prayer_zone` dalam `config.json`, pastikan TV ada internet, tunggu seminit. |
 | Tiada bunyi azan | Fail mesti bernama tepat `azan.mp3` dan berada dalam `theme-saya`; hantar semula (langkah 14). |
-| `INSTALL_FAILED_UPDATE_INCOMPATIBLE` | Versi Glass TV lain sudah terpasang: buang dahulu (`pm uninstall com.gathin.tvhome`), kemudian ulang langkah 10. |
+| `INSTALL_FAILED_UPDATE_INCOMPATIBLE` | Versi lain (Glass TV atau Clear TV Islamic yang lain) sudah terpasang: buang dahulu (`pm uninstall com.gathin.tvhome`), kemudian ulang langkah 10. |
 
 Jawapan lain dalam [TROUBLESHOOTING.md](TROUBLESHOOTING.md) (bahasa Inggeris).

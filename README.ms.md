@@ -1,11 +1,11 @@
-# Glass TV Islamik
+# Clear TV Islamic
 
 <p><b>Bahasa Melayu</b> · <a href="README.md">English</a> · <a href="docs/INSTALL.ms.md">Panduan pemasangan langkah demi langkah</a></p>
 
 **Android TV atau Google TV anda, laju dan tanpa iklan, dengan waktu solat JAKIM, azan pada setiap waktu,
 ayat Al-Quran dan gambar masjid-masjid indah di dunia, termasuk Mekah dan Madinah.**
 
-Glass TV Islamik membuang aplikasi bloat dan iklan dari TV melalui Wi-Fi, tanpa root dan semuanya boleh
+Clear TV Islamic membuang aplikasi bloat dan iklan dari TV melalui Wi-Fi, tanpa root dan semuanya boleh
 dibatalkan, lalu menggantikan skrin utama yang penuh iklan dengan skrin kaca yang ringan. Di belakang aplikasi
 anda: Masjidil Haram, Masjid Nabawi, Masjid Kristal dan banyak lagi. Di bawah jam: lima waktu solat hari ini.
 Bila TV berehat: jam emas, tarikh Hijri dan ayat Al-Quran. Bila masuk waktu: azan.
@@ -58,7 +58,7 @@ Android SDK, lebih kurang 30 minit.
 ## Cara memasang
 
 **Cara mudah, tanpa coding:** [panduan pemasangan langkah demi langkah](docs/INSTALL.ms.md). Ia memasang
-`dist/glass-tv-islamik.apk` yang sudah siap, jadi anda cuma perlu Python, bukan Java atau Android SDK.
+`dist/clear-tv-islamic.apk` yang sudah siap, jadi anda cuma perlu Python, bukan Java atau Android SDK.
 
 **Dengan pembantu AI** (Claude Code, Codex, Cursor, Copilot…): buka repositori ini dan minta ia pasang di TV
 anda. [AGENTS.md](AGENTS.md) memberitahu pembantu itu cara melakukannya dengan selamat: semak model TV dulu,
@@ -69,7 +69,7 @@ Ringkasnya (Mac/Linux):
 ```bash
 python3 -m venv tools/venv && tools/venv/bin/pip install -r tools/requirements.txt
 export TV_HOST=192.168.1.50                                   # alamat IP TV anda
-APK=dist/glass-tv-islamik.apk launcher/build-and-install.sh   # pasang dan jadikan Home
+APK=dist/clear-tv-islamic.apk launcher/build-and-install.sh   # pasang dan jadikan Home
 python3 tools/masjid-photos.py theme-saya                     # gambar masjid (pilihan)
 tools/theme.sh theme-saya                                     # hantar tetapan, azan dan gambar
 ```
@@ -105,7 +105,7 @@ Android TV dan Google TV, Android 8 ke atas, sama ada TV itu sendiri atau box ya
 [docs/DEVICES.md](docs/DEVICES.md) menyenaraikan model yang telah diuji.
 
 TV LG (webOS) dan Samsung (Tizen) tidak boleh menjalankan aplikasi Android dan tidak membenarkan skrin utama
-ditukar. Untuk Glass TV penuh, cucuk Google TV atau Android TV box (Chromecast with Google TV, Xiaomi Mi Box,
+ditukar. Untuk Clear TV Islamic penuh, cucuk Google TV atau Android TV box (Chromecast with Google TV, Xiaomi Mi Box,
 NVIDIA Shield) ke port HDMI.
 
 ## Kredit dan lesen
