@@ -1,21 +1,31 @@
-# Glass TV
+# Glass TV Islamik
 
-> **Versi Islamik (Pokka99/glass-tv-Islamic):** fork [cocombee/glass-tv](https://github.com/cocombee/glass-tv)
-> dengan **waktu solat JAKIM** di bawah jam dan **skrin azan** pada setiap waktu solat. Lihat
-> [Waktu solat dan azan](#waktu-solat-dan-azan) di bawah. Semua ciri asal Glass TV kekal.
+**Android TV atau Google TV anda, laju dan tanpa iklan, dengan waktu solat JAKIM, azan pada setiap waktu,
+ayat Al-Quran dan gambar masjid-masjid indah di dunia, termasuk Mekah dan Madinah.**
 
-**Make your Android TV or Google TV fast and ad-free again: strip out the bloat and ads, free up memory,
-and come home to just your apps, with a new place to visit behind them every week.**
-
-Glass TV debloats any Android TV or Google TV over Wi-Fi, with no root and nothing that can't be undone, then
-swaps the ad-filled home screen for a light one in frosted glass, with a new set of places behind your apps
-every week.
+Glass TV Islamik membuang aplikasi bloat dan iklan dari TV melalui Wi-Fi, tanpa root dan semuanya boleh
+dibatalkan, lalu menggantikan skrin utama yang penuh iklan dengan skrin kaca yang ringan. Di belakang aplikasi
+anda: Masjidil Haram, Masjid Nabawi, Masjid Kristal dan banyak lagi. Di bawah jam: lima waktu solat hari ini.
+Bila TV berehat: jam emas, tarikh Hijri dan ayat Al-Quran. Bila masuk waktu: azan.
 
 <p>
-  <img src="docs/screenshots/promo-1-home.jpg" width="32%" alt="Your TV, fast and ad-free again: the TV behind on the left, the app grid behind on the right, Home over Mount Sneffels in front">
-  <img src="docs/screenshots/promo-2-features.jpg" width="32%" alt="Looks like Apple, runs on Android: glass, Inputs, a place a week, your own app order, no ads">
-  <img src="docs/screenshots/promo-3-clock.jpg" width="32%" alt="Ads off, time on: the clock screensaver">
+  <img src="docs/screenshots/promo-islamik-1-home.jpg" width="32%" alt="TV anda, tenang dan tanpa iklan: Home dengan Masjid Quba di belakang aplikasi dan waktu solat di bawah jam">
+  <img src="docs/screenshots/promo-islamik-2-ciri.jpg" width="32%" alt="Setiap waktu, TV mengingatkan: waktu solat JAKIM, azan, ayat Al-Quran dan masjid di dunia">
+  <img src="docs/screenshots/promo-islamik-3-screensaver.jpg" width="32%" alt="Bila TV berehat, hati mengingati: screensaver jam emas, tarikh Hijri, waktu solat dan ayat Al-Quran">
 </p>
+
+- **Waktu solat JAKIM** untuk zon anda di bawah jam, dengan tarikh Hijri dan kiraan masa ke waktu seterusnya.
+- **Azan** pada setiap waktu solat: skrin azan dan suara azan pilihan anda (azan Subuh boleh berlainan).
+- **Screensaver Islamik**: jam emas, kad waktu solat dan ayat Al-Quran yang bergilir.
+- **Gambar masjid** di belakang Home dan screensaver: Mekah, Madinah, Terengganu, Putrajaya, Istanbul, Brunei...
+- **Ringan dan bersih**: iklan, penjejakan dan aplikasi bloat dimatikan; cache dibersihkan sendiri setiap 15 hari.
+
+Cara memasang dan memilih zon JAKIM: lihat [Waktu solat dan azan](#waktu-solat-dan-azan) dan
+[Setting it up](#setting-it-up). Dibina di atas [Glass TV oleh cocombee](https://github.com/cocombee/glass-tv)
+(MIT); semua ciri asalnya kekal dan diterangkan dalam bahasa Inggeris di bawah.
+
+<sub>Gambar promo menggunakan foto dari Wikimedia Commons: Masjid Quba (Muhammad Mahdi Karim, GFDL 1.2),
+Masjidil Haram (Saudipics.com, CC BY-SA 4.0) dan Masjid Jame' Asr Hassanil Bolkiah (Jorge Láscar, CC BY 2.0).</sub>
 
 ## What you get
 
