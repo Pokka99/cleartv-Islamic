@@ -1,5 +1,9 @@
 # Glass TV
 
+> **Versi Islamik (Pokka99/glass-tv-Islamic):** fork [cocombee/glass-tv](https://github.com/cocombee/glass-tv)
+> dengan **waktu solat JAKIM** di bawah jam dan **skrin azan** pada setiap waktu solat. Lihat
+> [Waktu solat dan azan](#waktu-solat-dan-azan) di bawah. Semua ciri asal Glass TV kekal.
+
 **Make your Android TV or Google TV fast and ad-free again: strip out the bloat and ads, free up memory,
 and come home to just your apps, with a new place to visit behind them every week.**
 
@@ -80,6 +84,38 @@ tools/theme.sh themes/<your theme>                            # push your settin
 Glass TV clears the TV's caches by itself every 15 days ([how](docs/cache-clean.md)). To clean several TVs
 from one computer instead, [`tools/cache-clean.sh`](docs/cache-clean.md) finds the TVs on your network and
 clears their caches, leaving sign-ins and app data untouched.
+
+## Waktu solat dan azan
+
+<img src="docs/screenshots/azan.jpg" width="60%" alt="Skrin azan: bulan sabit dan bintang emas dengan cincin cahaya, 'Telah masuk waktu Maghrib'">
+
+- **Waktu solat di Home:** satu baris kaca di bawah jam dengan tarikh Hijri, lima waktu solat hari ini
+  (Subuh, Zohor, Asar, Maghrib, Isyak), waktu seterusnya ditonjolkan dan kiraan masa ("Asar dalam 12 min").
+  Waktu setahun diambil sekali dari [e-Solat JAKIM](https://www.e-solat.gov.my) dan disimpan dalam TV.
+- **Azan:** pada setiap waktu solat, sama ada TV di screensaver jam atau di Home, skrin azan penuh keluar
+  dan `azan.mp3` dimainkan (`azan-subuh.mp3` untuk Subuh). Tekan apa-apa butang remote untuk hentikan. Tidak
+  mengganggu bila sedang menonton aplikasi lain.
+
+**Cara guna:** ikut langkah pemasangan biasa di bawah, kemudian buat folder theme dengan `config.json`:
+
+```json
+{
+  "prayer_zone": "TRG04",
+  "azan": true
+}
+```
+
+Tukar `TRG04` kepada kod zon JAKIM kawasan anda (contoh `WLY01` Kuala Lumpur, `SGR01` Petaling/Gombak,
+`JHR02` Johor Bahru; senarai penuh di laman e-Solat). Letak fail azan anda sendiri dalam folder yang sama,
+dinamakan `azan.mp3` dan (pilihan) `azan-subuh.mp3`. Fail audio tidak disertakan dalam repo ini: gunakan
+rakaman yang anda berhak gunakan. Kemudian hantar ke TV:
+
+```bash
+TV_HOST=<ip TV> tools/theme.sh <folder theme>
+```
+
+Tanpa fail audio, skrin azan keluar senyap selama 90 saat. `"azan": false` mematikan azan; membuang
+`prayer_zone` mematikan semuanya.
 
 ## Which TVs work
 
