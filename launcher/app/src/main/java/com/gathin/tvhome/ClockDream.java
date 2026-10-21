@@ -21,6 +21,9 @@ import java.util.Random;
  * It sits in the middle of the screen and every minute shifts a few pixels around the centre, so
  * nothing burns in while it still reads as centred. No network, no images: cheap enough for a 1 GB TV.
  *
+ * <p>With a prayer_zone in the theme it shows {@link IslamicDream} instead: the time, prayer times and
+ * a verse of the Quran over a lattice of eight-pointed stars.
+ *
  * <p>Everything is sized from the screen's height, in the units the design was drawn in: a screen
  * 380 units tall.
  */
@@ -33,6 +36,8 @@ public class ClockDream extends DreamService {
     private final Random random = new Random();
     private View content;
     private ClockFace face;
+    /** The Islamic face (IslamicDream), shown instead of the analog clock when a theme sets prayer_zone. */
+    private IslamicDream islamic;
     /** The azan at prayer times (Azan), or null when the theme has no prayer_zone or turns it off. */
     private Azan azan;
     private String prayerZone;
@@ -68,10 +73,15 @@ public class ClockDream extends DreamService {
         setInteractive(false);   // any key wakes the TV back to where it was
         setFullscreen(true);
         setScreenBright(false);
-        setContentView(R.layout.dream_clock);
-
-        content = findViewById(R.id.dreamContent);
         Config cfg = Config.load(this);
+        if (!cfg.prayerZone.isEmpty()) {
+            setContentView(R.layout.dream_islamic);
+            islamic = new IslamicDream(this, cfg.prayerZone);
+            content = islamic.content;
+        } else {
+            setContentView(R.layout.dream_clock);
+            content = findViewById(R.id.dreamContent);
+        }
         if (cfg.azan && !cfg.prayerZone.isEmpty()) {
             prayerZone = cfg.prayerZone;
             reducedMotion = cfg.reducedMotion;
@@ -82,18 +92,24 @@ public class ClockDream extends DreamService {
                 handler.postDelayed(tick, MOVE_MS);
             });
         }
-        face = new ClockFace(this);
-        ((ViewGroup) content).addView(face, 0, new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        TextClock date = findViewById(R.id.dreamDate);
-        // The month in short and the year (in capitals, see dream_clock.xml): OCT 21, 2026.
-        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "MMMdyyyy");
-        date.setFormat12Hour(pattern);
-        date.setFormat24Hour(pattern);
         View screen = (View) content.getParent();
-        screen.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> {
-            if (b - t != ob - ot) size(b - t);
-        });
+        if (islamic != null) {
+            screen.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> {
+                if (r - l != or - ol || b - t != ob - ot) islamic.size(r - l, b - t);
+            });
+        } else {
+            face = new ClockFace(this);
+            ((ViewGroup) content).addView(face, 0, new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            TextClock date = findViewById(R.id.dreamDate);
+            // The month in short and the year (in capitals, see dream_clock.xml): OCT 21, 2026.
+            String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "MMMdyyyy");
+            date.setFormat12Hour(pattern);
+            date.setFormat24Hour(pattern);
+            screen.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> {
+                if (b - t != ob - ot) size(b - t);
+            });
+        }
         // Re-centre once the clock has its size for this screen.
         content.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> {
             if (r - l != or - ol || b - t != ob - ot) placeClock();
@@ -140,7 +156,7 @@ public class ClockDream extends DreamService {
             placeClock();
             content.animate().alpha(1f).setDuration(1200).start();
         });
-        face.start();
+        if (face != null) face.start();
         handler.postDelayed(tick, MOVE_MS);
         if (azan != null) handler.post(azanCheck);
     }
@@ -150,13 +166,14 @@ public class ClockDream extends DreamService {
         handler.removeCallbacks(tick);
         handler.removeCallbacks(azanCheck);
         if (azan != null) azan.stop();
-        face.stop();
+        if (face != null) face.stop();
         super.onDreamingStopped();
     }
 
     @Override
     public void onDetachedFromWindow() {
         handler.removeCallbacks(tick);
+        if (islamic != null) islamic.release();
         handler.removeCallbacks(azanCheck);
         if (azan != null) azan.stop();
         super.onDetachedFromWindow();
@@ -164,6 +181,7 @@ public class ClockDream extends DreamService {
 
     private void moveClock() {
         content.animate().alpha(0f).setDuration(900).withEndAction(() -> {
+            if (islamic != null) islamic.minute();
             placeClock();
             content.animate().alpha(1f).setDuration(1200).start();
         }).start();

@@ -87,11 +87,21 @@ clears their caches, leaving sign-ins and app data untouched.
 
 ## Waktu solat dan azan
 
-<img src="docs/screenshots/azan.jpg" width="60%" alt="Skrin azan: bulan sabit dan bintang emas dengan cincin cahaya, 'Telah masuk waktu Maghrib'">
+<img src="docs/screenshots/screensaver-islamik.jpg" width="49%" alt="Screensaver Islamik: jam, tarikh Hijri, waktu solat dan ayat Ar-Ra'd 13:28 atas corak bintang lapan penjuru">
+<img src="docs/screenshots/azan.jpg" width="49%" alt="Skrin azan: bulan sabit dan bintang emas dengan cincin cahaya, 'Telah masuk waktu Maghrib'">
 
 - **Waktu solat di Home:** satu baris kaca di bawah jam dengan tarikh Hijri, lima waktu solat hari ini
   (Subuh, Zohor, Asar, Maghrib, Isyak), waktu seterusnya ditonjolkan dan kiraan masa ("Asar dalam 12 min").
   Waktu setahun diambil sekali dari [e-Solat JAKIM](https://www.e-solat.gov.my) dan disimpan dalam TV.
+- **Screensaver Islamik:** jam, tarikh Melayu dan Hijri, waktu solat (waktu seterusnya berwarna emas) dan
+  satu ayat Al-Quran dengan terjemahan yang bertukar setiap 3 minit, atas corak bintang lapan penjuru yang
+  bergerak perlahan supaya skrin tidak terbakar. Teks Arab Uthmani dan terjemahan Kementerian Agama RI,
+  melalui quran.com (`launcher/app/src/main/res/raw/ayat.json`).
+- **Gambar masjid:** di belakang screensaver, gambar Masjidil Haram, Kaabah, Masjid Nabawi, Masjid Quba dan
+  masjid-masjid indah lain (Masjid Kristal, Masjid Putra, Istanbul, Brunei, Lahore, Baitulmaqdis...) bertukar
+  bersama ayat, dengan nama masjid dan kredit jurugambar di penjuru. Semua dari Wikimedia Commons dengan lesen
+  bebas; senarainya di [themes/islamik/masjid.json](themes/islamik/masjid.json). Muat turun ke folder theme
+  anda dengan `python3 tools/masjid-photos.py <folder theme>`.
 - **Azan:** pada setiap waktu solat, sama ada TV di screensaver jam atau di Home, skrin azan penuh keluar
   dan `azan.mp3` dimainkan (`azan-subuh.mp3` untuk Subuh). Tekan apa-apa butang remote untuk hentikan. Tidak
   mengganggu bila sedang menonton aplikasi lain.
@@ -111,8 +121,11 @@ dinamakan `azan.mp3` dan (pilihan) `azan-subuh.mp3`. Fail audio tidak disertakan
 rakaman yang anda berhak gunakan. Kemudian hantar ke TV:
 
 ```bash
+python3 tools/masjid-photos.py <folder theme>      # gambar masjid (pilihan)
 TV_HOST=<ip TV> tools/theme.sh <folder theme>
 ```
+
+Contoh folder theme yang sedia ada: [themes/islamik](themes/islamik/config.json).
 
 Tanpa fail audio, skrin azan keluar senyap selama 90 saat. `"azan": false` mematikan azan; membuang
 `prayer_zone` mematikan semuanya.

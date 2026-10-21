@@ -21,7 +21,7 @@ $pkg = 'com.gathin.tvhome'
 $dir = "/sdcard/Android/data/$pkg/files"
 
 if ($Reset) {
-    & $py -I tv.py "rm -f $dir/config.json $dir/wallpaper.jpg $dir/azan.mp3 $dir/azan-subuh.mp3; am force-stop $pkg; am start -n $pkg/.MainActivity >/dev/null; echo reset"
+    & $py -I tv.py "rm -f $dir/config.json $dir/wallpaper.jpg $dir/azan.mp3 $dir/azan-subuh.mp3; rm -rf $dir/masjid; am force-stop $pkg; am start -n $pkg/.MainActivity >/dev/null; echo reset"
     exit 0
 }
 if (-not $Theme) { throw 'usage: theme.ps1 <theme folder> | -Reset' }
@@ -33,6 +33,15 @@ try { Get-Content $config -Raw | ConvertFrom-Json | Out-Null } catch { throw "$c
 & $py -I tv.py --push $config "$dir/config.json"
 $wall = Join-Path $Theme 'wallpaper.jpg'
 if (Test-Path $wall) { & $py -I b64push.py $wall "$dir/wallpaper.jpg" } else { & $py -I tv.py "rm -f $dir/wallpaper.jpg" | Out-Null }
+# Mosque photos behind the Islamic screensaver (tools/masjid-photos.py).
+& $py -I tv.py "rm -rf $dir/masjid" | Out-Null
+$masjid = Join-Path $Theme 'masjid'
+if (Test-Path $masjid) {
+    & $py -I tv.py "mkdir -p $dir/masjid" | Out-Null
+    Get-ChildItem $masjid -File | Where-Object { $_.Extension -eq '.jpg' -or $_.Name -eq 'captions.json' } | ForEach-Object {
+        & $py -I b64push.py $_.FullName "$dir/masjid/$($_.Name)"
+    }
+}
 # The azan's sound (prayer_zone): azan.mp3, and azan-subuh.mp3 for Subuh.
 foreach ($f in 'azan.mp3', 'azan-subuh.mp3') {
     $src = Join-Path $Theme $f

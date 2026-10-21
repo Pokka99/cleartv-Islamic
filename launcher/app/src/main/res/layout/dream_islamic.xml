@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The Islamic screensaver (ClockDream, with a prayer_zone): the time, the Malay and Hijri dates and
+     today's prayer times over a lattice of eight-pointed stars (IslamicPattern, added in code), and a
+     verse of the Quran with its translation that changes every few minutes. ClockDream sizes the
+     text to the screen's height. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/islamicRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FF061813">
+
+    <LinearLayout
+        android:id="@+id/islamicContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <!-- The time on the left; a gold rule; the day, the date and the Hijri date on the right. -->
+        <LinearLayout
+            android:id="@+id/islamicTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextClock
+                android:id="@+id/islamicTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:format12Hour="h:mm"
+                android:format24Hour="HH:mm"
+                android:textColor="#FFE9CB7E"
+                android:fontFamily="serif"
+                android:textStyle="bold"
+                android:letterSpacing="-0.01"
+                android:includeFontPadding="false" />
+
+            <View
+                android:id="@+id/islamicRule"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:background="#B3E9CB7E" />
+
+            <LinearLayout
+                android:id="@+id/islamicDates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/islamicDay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#B3F4EEDC"
+                    android:fontFamily="@font/outfit"
+                    android:fontVariationSettings="'wght' 500"
+                    android:letterSpacing="0.3"
+                    android:textAllCaps="true"
+                    android:includeFontPadding="false" />
+
+                <TextView
+                    android:id="@+id/islamicDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#E6F4EEDC"
+                    android:fontFamily="@font/outfit"
+                    android:fontVariationSettings="'wght' 500"
+                    android:letterSpacing="0.06"
+                    android:textAllCaps="true"
+                    android:includeFontPadding="false" />
+
+                <TextView
+                    android:id="@+id/islamicHijri"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFE9CB7E"
+                    android:fontFamily="@font/outfit"
+                    android:fontVariationSettings="'wght' 500"
+                    android:letterSpacing="0.03"
+                    android:includeFontPadding="false" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/islamicOrnament"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="──────  ✦  ──────"
+            android:textColor="#80E9CB7E"
+            android:includeFontPadding="false" />
+
+        <!-- Today's five prayer times as cells in a glass card; the next one framed in gold (IslamicDream). -->
+        <LinearLayout
+            android:id="@+id/islamicPrayers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/prayer_card"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" />
+
+        <TextView
+            android:id="@+id/islamicNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFE9CB7E"
+            android:fontFamily="@font/outfit"
+            android:fontVariationSettings="'wght' 500"
+            android:letterSpacing="0.04"
+            android:includeFontPadding="false" />
+
+        <LinearLayout
+            android:id="@+id/islamicVerse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/islamicArabic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textDirection="rtl"
+                android:textColor="#FFF6E7BE"
+                android:lineSpacingMultiplier="1.15" />
+
+            <TextView
+                android:id="@+id/islamicMeaning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="#A6F4EEDC"
+                android:fontFamily="@font/outfit"
+                android:fontVariationSettings="'wght' 300"
+                android:lineSpacingMultiplier="1.15" />
+
+            <TextView
+                android:id="@+id/islamicRef"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#CCE9CB7E"
+                android:fontFamily="@font/outfit"
+                android:fontVariationSettings="'wght' 500"
+                android:letterSpacing="0.14"
+                android:textAllCaps="true"
+                android:includeFontPadding="false" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

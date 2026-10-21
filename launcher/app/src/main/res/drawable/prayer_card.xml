@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The screensaver's prayer-times card: dark green glass with a thin gold rim. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="#A60A2A22" />
+    <stroke android:width="1.5dp" android:color="#59E9CB7E" />
+    <corners android:radius="14dp" />
+</shape>

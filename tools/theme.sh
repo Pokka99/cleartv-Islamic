@@ -20,7 +20,7 @@ DIR=/sdcard/Android/data/$PKG/files
 tv() { "$PY" -I tv.py "$@"; }
 
 if [ "${1:-}" = --reset ]; then
-  tv "rm -rf $DIR/config.json $DIR/wallpaper.jpg $DIR/wallpapers $DIR/azan.mp3 $DIR/azan-subuh.mp3; am force-stop $PKG; am start -n $PKG/.MainActivity >/dev/null; echo reset" | tail -n 1
+  tv "rm -rf $DIR/config.json $DIR/wallpaper.jpg $DIR/wallpapers $DIR/azan.mp3 $DIR/azan-subuh.mp3 $DIR/masjid; am force-stop $PKG; am start -n $PKG/.MainActivity >/dev/null; echo reset" | tail -n 1
   exit 0
 fi
 THEME="${THEME_ARG:?usage: theme.sh <theme folder> | --reset}"
@@ -44,6 +44,15 @@ for f in azan.mp3 azan-subuh.mp3; do
     tv "rm -f $DIR/$f" >/dev/null
   fi
 done
+# Mosque photos behind the Islamic screensaver (tools/masjid-photos.py).
+tv "rm -rf $DIR/masjid" >/dev/null
+if [ -d "$THEME/masjid" ]; then
+  tv "mkdir -p $DIR/masjid" >/dev/null
+  for f in "$THEME"/masjid/*.jpg "$THEME"/masjid/captions.json; do
+    [ -f "$f" ] || continue
+    "$PY" -I b64push.py "$f" "$DIR/masjid/$(basename "$f")" | tail -n 1
+  done
+fi
 tv "rm -rf $DIR/wallpapers" >/dev/null
 if [ -d "$THEME/wallpapers" ]; then
   tv "mkdir -p $DIR/wallpapers" >/dev/null
