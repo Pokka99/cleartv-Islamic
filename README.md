@@ -68,12 +68,12 @@ Masjid al-Haram (Saudipics.com, CC BY-SA 4.0) and Jame' Asr Hassanil Bolkiah Mos
 | *Home, with a mosque and the prayer times* | *Every app, feathering out under the top bar* |
 | ![The glass Inputs menu with HDMI 1 selected, over a mosque photo](docs/screenshots/islamik-inputs.jpg) | ![The Islamic screensaver: a gold clock, the Hijri date, the prayer-times card and a verse of the Quran over a mosque photo](docs/screenshots/screensaver-islamik.jpg) |
 | *Inputs, in glass* | *The Islamic screensaver* |
-| ![The azan screen: a gold crescent with rings of light, "Telah masuk waktu Maghrib" (it is now time for Maghrib)](docs/screenshots/azan.jpg) | |
-| *The azan screen at prayer time* | |
+| ![The azan screen: a gold crescent with rings of light, "Telah masuk waktu Maghrib" (it is now time for Maghrib)](docs/screenshots/azan.jpg) | ![The azan band over another app: a gold crescent, "Telah masuk waktu Maghrib", the time and the Hijri date, and "press any button to stop the azan"](docs/screenshots/azan-over-apps.jpg) |
+| *The azan screen at prayer time, on Home* | *The azan over any other app, even YouTube or Netflix* |
 
 Still light: on a Xiaomi Mi TV with 1.8 GB of RAM the launcher uses about 80–100 MB and stays there over hours
 of use, one wallpaper is in memory at a time, the week's places take about 2 MB of storage, and nothing runs
-while you are inside an app.
+while you are inside an app, except the azan at prayer time.
 
 ## Setting it up
 

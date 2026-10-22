@@ -54,8 +54,8 @@ Android SDK, lebih kurang 30 minit.
 | *Home, dengan masjid dan waktu solat* | *Semua aplikasi, pudar di bawah bar atas* |
 | ![Menu Inputs kaca dengan HDMI 1 dipilih](docs/screenshots/islamik-inputs.jpg) | ![Screensaver Islamik: jam emas, tarikh Hijri, kad waktu solat dan ayat Al-Quran](docs/screenshots/screensaver-islamik.jpg) |
 | *Inputs, dalam kaca* | *Screensaver Islamik* |
-| ![Skrin azan: bulan sabit emas dan cincin cahaya, Telah masuk waktu Maghrib](docs/screenshots/azan.jpg) | |
-| *Skrin azan pada waktu solat* | |
+| ![Skrin azan: bulan sabit emas dan cincin cahaya, Telah masuk waktu Maghrib](docs/screenshots/azan.jpg) | ![Jalur azan di atas aplikasi lain: bulan sabit emas, Telah masuk waktu Maghrib, masa dan tarikh Hijri](docs/screenshots/azan-over-apps.jpg) |
+| *Skrin azan pada waktu solat, di Home* | *Azan di atas aplikasi lain, termasuk YouTube dan Netflix* |
 
 ## Cara memasang
 
