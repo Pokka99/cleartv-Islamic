@@ -1,5 +1,10 @@
 # The prompt
 
+> **For Clear TV Islamic, don't use this prompt:** it builds a plain launcher from scratch, without the prayer times,
+> azan or mosques. Ask your assistant to follow [AGENTS.md](AGENTS.md) instead, for example: *"Set up Clear TV
+> Islamic on my TV following AGENTS.md. My TV is <model>, its IP is <ip>, I live in <district, state>."*
+> This page is kept for reference.
+
 Paste this into Claude Code (or another coding assistant with shell access) on a computer that is
 on the same Wi-Fi as the TV. Works on Android TV / Google TV sets (Xiaomi, TCL, Hisense, Sony,
 OnePlus, Realme, Nvidia Shield and most others). It will not work on Samsung Tizen, LG webOS or

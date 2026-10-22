@@ -1,7 +1,10 @@
 # Instructions for AI agents
 
 You are helping someone set up **Clear TV Islamic** on their own TV: on Android TV and Google TV, debloat it and install
-this launcher as the home screen, with pictures of places behind it; on LG webOS, install the webOS app. This file is the playbook. It is written for any brand and for any
+this launcher as the home screen, with **JAKIM prayer times under the clock, the azan at every prayer, an Islamic
+screensaver with verses of the Quran, and mosque photos behind Home** (Mecca, Medina and more); on LG webOS, install
+the webOS app. The Islamic features are the reason people install this version: they only turn on with the Islamic
+theme of step 6, so **never finish without step 6**. This file is the playbook. It is written for any brand and for any
 AI model, large or small. Follow it in order, and read [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
 before you improvise a fix.
 
@@ -144,8 +147,10 @@ Written so that any model can follow it to the letter:
   works, Wi-Fi is connected, and an HDMI input still shows a picture. If anything broke, re-enable that batch's
   packages one by one (`pm enable <pkg>`) before going on.
 
-### 4. Build the launcher
+### 4. Build the launcher (usually not needed)
 
+- **Use the ready-made APK instead**: `dist/clear-tv-islamic.apk` is built from this repository. With it, skip the
+  rest of this step: no JDK or Android SDK is needed. Build only when the person wants to change the code.
 - Needs JDK 17 and Android SDK platform 34 + build-tools 34.0.0. On a Mac without Homebrew, download
   Temurin 17 and the Android command-line tools, then `sdkmanager --sdk_root=<dir> --licenses` (the person
   must agree to the licence) and `"platforms;android-34" "build-tools;34.0.0"`.
@@ -159,6 +164,9 @@ Written so that any model can follow it to the letter:
 
 ### 5. Install and make it Home
 
+- With the ready-made APK: `APK=dist/clear-tv-islamic.apk TV_HOST=<ip> launcher/build-and-install.sh` (Windows:
+  `launcher\build-and-install.ps1 -TvHost <ip> -Apk dist\clear-tv-islamic.apk`). It does everything below without
+  building.
 - `TV_HOST=<ip> launcher/build-and-install.sh` (Windows: `launcher\build-and-install.ps1 -TvHost <ip>`). It has a
   safeguard that puts the TV back as it was if Clear TV Islamic does not work on it:
   - Before changing anything it refuses Android older than 8 and Fire TV, with a plain message.
@@ -179,7 +187,38 @@ Written so that any model can follow it to the letter:
   on the remote to see it.` A line starting with `ERROR:` means it stopped and already put the stock launcher
   back; the message says what to do next.
 
-### 6. Settings and wallpapers (themes)
+### 6. The Islamic theme: prayer times, azan, mosques, screensaver (never skip)
+
+Without this step the TV shows the plain launcher (a grey clock and Bing's places), and the person will think the
+install failed. Do all of it:
+
+1. **Ask where they live** (state and district) and find their **JAKIM zone code** on
+   [e-solat.gov.my](https://www.e-solat.gov.my): for example `WLY01` Kuala Lumpur and Putrajaya, `SGR01` Gombak,
+   Petaling, Sepang, Hulu Langat, Hulu Selangor and Shah Alam, `JHR02` Johor Bahru, Kota Tinggi, Mersing and Kulai,
+   `TRG04` Kemaman and Dungun. Never guess a zone: wrong prayer times are worse than none. Check it answers:
+   `curl -s "https://www.e-solat.gov.my/index.php?r=esolatApi/TakwimSolat&period=today&zone=<ZONE>"` must return a
+   `prayerTime` list. If they are outside Malaysia, say plainly that the prayer times come from JAKIM and cover
+   Malaysia only, and ask before going on.
+2. **Make their theme folder** from the Islamic one, outside the tracked files: `cp -R themes/islamik backup/theme`
+   (`backup/` is gitignored). In `backup/theme/config.json` set `"prayer_zone"` to their zone, and add
+   `"dock_apps"` with the four apps they picked, in order (package names from `pm list packages -3`).
+3. **The azan**: `themes/islamik` already has `azan.mp3` (Ustaz Asri Ibrahim, Rabbani) and `azan-subuh.mp3`. Ask
+   whether they want these or their own recordings; theirs replace the files of the same name.
+4. **Mosque photos**: `python3 tools/masjid-photos.py backup/theme` (13 photos, about 9 MB, from Wikimedia Commons;
+   say so before downloading). They go behind Home and the screensaver.
+5. **Push it**: `TV_HOST=<ip> tools/theme.sh backup/theme` (Windows: `tools\theme.ps1 -TvHost <ip> backup\theme`).
+   With the photos and the azan this takes a few minutes.
+6. **The screensaver**: `settings put secure screensaver_components com.gathin.tvhome/.ClockDream`.
+7. **Check**, one at a time:
+   - `logcat -d -s TvHome.Solat` shows `saved 365 days for <ZONE>` within a minute (the TV needs internet).
+   - A screenshot of Home (ask first) shows the prayer row under the clock and a mosque behind the apps.
+   - With the person's go-ahead (it plays the azan aloud): `touch /sdcard/Android/data/com.gathin.tvhome/files/azan-now`,
+     press Home, and within a minute `logcat -d -s TvHome.Azan` shows `azan <prayer>` and the azan plays; any
+     button on the remote stops it.
+   - `am start -n com.android.systemui/.Somnambulator` starts the screensaver: the gold clock, the prayer card and
+     a verse over a mosque photo. Any button ends it.
+
+### 6b. Other settings and wallpapers (themes)
 
 A theme is a folder with `config.json` (and optional `wallpaper.jpg` or `wallpapers/`). Push it with
 `TV_HOST=<ip> tools/theme.sh <folder>`, no rebuild needed. All keys are in
@@ -217,7 +256,8 @@ A theme is a folder with `config.json` (and optional `wallpaper.jpg` or `wallpap
 - Ask before taking screenshots. Use `screencap -p /sdcard/s.png` and pull it; `exec-out screencap` gives
   broken PNGs on some MediaTek TVs. Screenshots of Live TV, HDMI or Netflix come out black.
 - Check: Home is the new launcher (`cmd package resolve-activity --brief -c android.intent.category.HOME -a
-  android.intent.action.MAIN`), System UI and the TV service are running, the dock and grid show the apps.
+  android.intent.action.MAIN`), System UI and the TV service are running, the dock and grid show the apps, and the
+  Islamic theme of step 6 is on: prayer times under the clock, a mosque behind the apps.
 - Ask the person to try with the real remote: Home button, Inputs → an HDMI device, playing a video, the mic
   button, screen mirroring, and holding OK on an app to move it.
 - Give them: the restore script (re-enables everything and puts the stock launcher back), where the theme
