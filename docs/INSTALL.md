@@ -175,7 +175,9 @@ clock. The year's prayer times arrive from JAKIM within a minute (the TV needs i
 - **Mac:** `tools/venv/bin/python -I tools/tv.py 'settings put secure screensaver_components com.gathin.tvhome/.ClockDream'`
 - **Windows:** `tools\venv\Scripts\python -I tools\tv.py 'settings put secure screensaver_components com.gathin.tvhome/.ClockDream'`
 
-Now, when the TV rests, the gold clock, the prayer times and a verse of the Quran appear over the mosques.
+Now, when the TV rests, the gold clock, the prayer times and a verse of the Quran appear over the mosques. And at
+every prayer time, even in YouTube or Netflix, a band with the azan slides up at the bottom of the screen; any
+button on the remote stops it. (Installed before 22 October 2026? Run step 10 again to get this.)
 
 ### 16. Let the TV keep itself clean (optional)
 

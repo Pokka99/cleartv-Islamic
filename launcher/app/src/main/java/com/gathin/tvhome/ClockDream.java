@@ -158,6 +158,7 @@ public class ClockDream extends DreamService {
         });
         if (face != null) face.start();
         handler.postDelayed(tick, MOVE_MS);
+        Azan.dreaming = true;
         if (azan != null) handler.post(azanCheck);
     }
 
@@ -166,6 +167,7 @@ public class ClockDream extends DreamService {
         handler.removeCallbacks(tick);
         handler.removeCallbacks(azanCheck);
         if (azan != null) azan.stop();
+        Azan.dreaming = false;
         if (face != null) face.stop();
         super.onDreamingStopped();
     }

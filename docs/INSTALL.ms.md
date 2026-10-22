@@ -178,7 +178,9 @@ jam. Waktu solat setahun sampai dari JAKIM dalam masa seminit (TV perlu internet
 - **Mac:** `tools/venv/bin/python -I tools/tv.py 'settings put secure screensaver_components com.gathin.tvhome/.ClockDream'`
 - **Windows:** `tools\venv\Scripts\python -I tools\tv.py 'settings put secure screensaver_components com.gathin.tvhome/.ClockDream'`
 
-Sekarang, bila TV berehat, jam emas, waktu solat dan ayat Al-Quran keluar atas gambar masjid.
+Sekarang, bila TV berehat, jam emas, waktu solat dan ayat Al-Quran keluar atas gambar masjid. Dan pada setiap
+waktu solat, walaupun dalam YouTube atau Netflix, jalur azan naik di bawah skrin; tekan apa-apa butang remote
+untuk hentikan. (Pasang sebelum 22 Oktober 2026? Ulang langkah 10 untuk dapat ciri ini.)
 
 ### 16. Biar TV bersihkan dirinya sendiri (pilihan)
 

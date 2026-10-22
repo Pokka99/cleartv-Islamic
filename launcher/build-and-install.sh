@@ -141,6 +141,7 @@ esac
 ARMED=1
 printf '%s\n' \
   "pm grant com.gathin.tvhome android.permission.ACCESS_FINE_LOCATION 2>/dev/null; echo location-granted" \
+  "appops set com.gathin.tvhome SYSTEM_ALERT_WINDOW allow 2>/dev/null; echo azan-over-apps-allowed" \
   "cmd package compile -m speed -f com.gathin.tvhome" \
   "am start -W -n com.gathin.tvhome/.MainActivity | grep -E '^(Status|Error)'" \
   | "$PY" -I ../tools/tv.py --batch

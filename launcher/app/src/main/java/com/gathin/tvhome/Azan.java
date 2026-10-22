@@ -15,7 +15,8 @@ import java.util.Calendar;
 /**
  * The call to prayer at each of the day's prayer times (PrayerTimes): {@link AzanView} over the
  * screen and, when the theme has one, azan.mp3 (azan-subuh.mp3 for Subuh) from the theme folder.
- * Shown once per prayer, by the screensaver or by Home, whichever is in front when the time comes.
+ * Shown once per prayer, by the screensaver or by Home, whichever is in front when the time comes;
+ * over any other app, AzanOverlay shows it as a band across the bottom of the screen.
  */
 final class Azan {
     private static final String TAG = "TvHome.Azan";
@@ -30,6 +31,15 @@ final class Azan {
     private final Runnable finish = this::stop;
     private AzanView view;
     private MediaPlayer player;
+    /**
+     * True while Home or the screensaver is on screen: they give the azan themselves, full screen.
+     * Otherwise another app is in front, and AzanOverlay gives it over that app.
+     */
+    static volatile boolean homeResumed, dreaming;
+
+    static boolean homeInFront() {
+        return homeResumed || dreaming;
+    }
 
     Azan(ViewGroup parent, Runnable onEnd) {
         this.parent = parent;
@@ -137,7 +147,7 @@ final class Azan {
     }
 
     /** azan-subuh.mp3 for Subuh when the theme has it, otherwise azan.mp3, otherwise null. */
-    private static File sound(Context ctx, int index) {
+    static File sound(Context ctx, int index) {
         File dir = Config.dir(ctx);
         if (dir == null) return null;
         if (index == 0) {

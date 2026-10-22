@@ -699,7 +699,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         reloadApps(true);
         updateShamsiDate();
         updatePrayerTimes();
+        Azan.homeResumed = true;
         checkAzan();
+        AzanAlarm.scheduleNext(this);
         updateWifiLabel();
         updateInputsButton();
         startWallpaperRotation();
@@ -792,6 +794,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         handler.removeCallbacks(minuteTick);
         handler.removeCallbacks(wallTick);
         if (azan != null) azan.stop();
+        Azan.homeResumed = false;
         // Nothing of ours stays on screen over another app; an undecided prompt simply returns next time.
         if (cardPrompt != null) cardPrompt.dismiss();
         if (openPopup != null) openPopup.dismiss();
@@ -1529,6 +1532,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                     boolean ok = PrayerTimes.refresh(getApplicationContext(), zone);
                     handler.post(() -> {
                         prayerRefreshRunning = false;
+                        if (ok) AzanAlarm.scheduleNext(getApplicationContext());
                         if (ok && !isDestroyed()) updatePrayerTimes();
                     });
                 }, "prayer-times").start();

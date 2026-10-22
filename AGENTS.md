@@ -215,6 +215,11 @@ install failed. Do all of it:
    - With the person's go-ahead (it plays the azan aloud): `touch /sdcard/Android/data/com.gathin.tvhome/files/azan-now`,
      press Home, and within a minute `logcat -d -s TvHome.Azan` shows `azan <prayer>` and the azan plays; any
      button on the remote stops it.
+   - Over another app: `appops get com.gathin.tvhome SYSTEM_ALERT_WINDOW` says `allow` (the install script sets
+     it), and `dumpsys alarm | grep com.gathin.tvhome.AZAN` shows the next prayer's alarm. With the person's
+     go-ahead, open YouTube, `touch .../files/azan-now` and
+     `am broadcast -a com.gathin.tvhome.AZAN -n 'com.gathin.tvhome/.AzanAlarm$Receiver'`: a band with the azan slides
+     up over YouTube, and a button press stops it.
    - `am start -n com.android.systemui/.Somnambulator` starts the screensaver: the gold clock, the prayer card and
      a verse over a mosque photo. Any button ends it.
 
@@ -272,7 +277,8 @@ A theme is a folder with `config.json` (and optional `wallpaper.jpg` or `wallpap
   `cd launcher && ./gradlew testReleaseUnitTest assembleRelease`.
 - The original Clean Your TV guide lives in [docs/CLEANYOURTV-README.md](docs/CLEANYOURTV-README.md); the tests
   read its TV table and counts. Keep its relative links pointing one level up (`../`).
-- Keep the launcher light: no new background services, no network use but the weekly places pictures (none with
+- Keep the launcher light: no new background services (the one exception is AzanOverlay, which runs only for the
+  length of an azan, started by an alarm at the prayer time), no network use but the weekly places pictures (none with
   `"places": false`), one wallpaper bitmap
   in memory, decoding off the main thread, nothing running while another app is in front.
 - Commits carry only the human author's identity. Don't add AI attribution lines.

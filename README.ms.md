@@ -26,7 +26,9 @@ Android SDK, lebih kurang 30 minit.
   [e-Solat JAKIM](https://www.e-solat.gov.my) dan disimpan dalam TV.
 - **Azan pada setiap waktu**, sama ada TV di screensaver atau di Home: skrin azan penuh (bulan sabit emas dengan
   cincin cahaya) dan `azan.mp3` pilihan anda (`azan-subuh.mp3` untuk Subuh). Tekan apa-apa butang remote untuk
-  hentikan. Ia tidak mengganggu bila anda sedang menonton aplikasi lain.
+  hentikan. **Dalam aplikasi lain** (YouTube, Netflix, Live TV), jalur azan naik di bahagian bawah skrin dengan
+  nama waktu, video di belakang berhenti seketika dan azan berkumandang. `"azan_over_apps": false` hanya
+  memaparkan azan di Home dan screensaver.
 - **Screensaver Islamik:** jam serif emas, tarikh Melayu dan Hijri, kad waktu solat dengan waktu seterusnya
   berbingkai emas, dan ayat Al-Quran dengan terjemahan yang bertukar setiap 3 minit. Teks Arab Uthmani dan
   terjemahan Kementerian Agama RI, melalui quran.com.

@@ -17,7 +17,8 @@ rests: a gold clock, the Hijri date and a verse of the Quran. When the time come
 </p>
 
 - **JAKIM prayer times** for your zone under the clock, with the Hijri date and a countdown to the next prayer.
-- **The azan** at every prayer: a full-screen azan and the recitation of your choice (a different one for Subuh).
+- **The azan** at every prayer, even while you watch YouTube or Netflix: full screen on Home, a band across the
+  bottom over any other app, with the recitation of your choice (a different one for Subuh).
 - **An Islamic screensaver**: a gold clock, a card of the day's prayer times and a verse of the Quran that changes.
 - **Mosque photos** behind Home and the screensaver: Mecca, Medina, Terengganu, Putrajaya, Istanbul, Brunei...
 - **Light and clean**: ads, tracking and bloat switched off, and the TV clears its own caches every 15 days.
@@ -121,7 +122,9 @@ clears their caches, leaving sign-ins and app data untouched.
   and `python3 tools/masjid-photos.py <theme folder>` downloads them. `"masjid_home": false` brings the weekly
   places back to Home.
 - **The azan:** at every prayer time, on the screensaver or on Home, the azan screen comes up and `azan.mp3` plays
-  (`azan-subuh.mp3` for Subuh). Any button on the remote stops it. It never interrupts another app.
+  (`azan-subuh.mp3` for Subuh). **In any other app** (YouTube, Netflix, Live TV) a band slides up across the lower
+  third of the screen with the prayer's name, the video underneath pauses and the azan plays. Any button on the
+  remote stops it. `"azan_over_apps": false` keeps the azan to Home and the screensaver.
 
 **How:** install as usual, then make a theme folder with a `config.json`
 ([themes/islamik](themes/islamik/config.json) is ready to copy):
