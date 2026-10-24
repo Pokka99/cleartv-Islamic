@@ -1,3 +1,8 @@
+On you AI, just write
+
+" Tolong pasang di TV saya guna https://github.com/IzzatZuhari/AndroidTVdebloat. Model TV saya [model tv] IP [contoh, 192.168.0.0] zon JAKIM saya [contoh, SGR04]. Ikut AGENTS.md dalam repo tu.
+
+
 # Clear TV Islamic
 
 <p><a href="README.ms.md">Bahasa Melayu</a> · <b>English</b> · <a href="docs/INSTALL.md">Step-by-step install guide</a> · <a href="docs/INSTALL.ms.md">Panduan pemasangan</a></p>
