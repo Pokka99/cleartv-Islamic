@@ -507,12 +507,12 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
                 g.setColor(0);
                 g.setCornerRadius(cornerRadius(w, d));
                 g.setStroke(Math.round(1 * d), (glowColor & 0x00FFFFFF) | 0x4D000000);
-                card.setForeground(g);
+                card.setForeground(null);
                 if (android.os.Build.VERSION.SDK_INT >= 28) {
-                    card.setOutlineSpotShadowColor((glowColor & 0x00FFFFFF) | 0x4D000000);
-                    card.setOutlineAmbientShadowColor((glowColor & 0x00FFFFFF) | 0x4D000000);
+                    card.setOutlineSpotShadowColor((glowColor & 0x00FFFFFF) | 0x66000000);
+                    card.setOutlineAmbientShadowColor((glowColor & 0x00FFFFFF) | 0x66000000);
                 }
-                card.setElevation(8 * d);
+                card.setElevation(24 * d);
             } else {
                 card.setForeground(null);
                 card.setElevation(0f);
