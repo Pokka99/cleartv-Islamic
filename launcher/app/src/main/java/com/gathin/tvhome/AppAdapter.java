@@ -506,13 +506,13 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
                 android.graphics.drawable.GradientDrawable g = new android.graphics.drawable.GradientDrawable();
                 g.setColor(0);
                 g.setCornerRadius(cornerRadius(w, d));
-                g.setStroke(Math.round(3 * d), glowColor);
+                g.setStroke(Math.round(1 * d), (glowColor & 0x00FFFFFF) | 0x4D000000);
                 card.setForeground(g);
                 if (android.os.Build.VERSION.SDK_INT >= 28) {
-                    card.setOutlineSpotShadowColor(glowColor);
-                    card.setOutlineAmbientShadowColor(glowColor);
+                    card.setOutlineSpotShadowColor((glowColor & 0x00FFFFFF) | 0x4D000000);
+                    card.setOutlineAmbientShadowColor((glowColor & 0x00FFFFFF) | 0x4D000000);
                 }
-                card.setElevation(24 * d);
+                card.setElevation(8 * d);
             } else {
                 card.setForeground(null);
                 card.setElevation(0f);
