@@ -1,6 +1,7 @@
 package com.gathin.tvhome;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
@@ -127,6 +128,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private float heroBottom;
     private View btnInputs;
     private TextView btnWifi;
+    /** The RAM readout beside the network pill. */
+    private TextView btnRam;
     private TextView shamsiDate;
     private boolean shamsi;
     /** Today's prayer times under the clock (PrayerTimes); hidden while prayerZone is empty. */
@@ -237,6 +240,16 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             reloadApps(false);
         }
     };
+    /** The RAM readout is a live gauge, so it refreshes faster than the clock's minute tick. */
+    private static final long RAM_MS = 15_000L;
+    private final Runnable ramTick = new Runnable() {
+        @Override
+        public void run() {
+            updateRam();
+            handler.postDelayed(this, RAM_MS);
+        }
+    };
+
     private final Runnable minuteTick = new Runnable() {
         @Override
         public void run() {
@@ -311,6 +324,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         });
         btnWifi = findViewById(R.id.btnWifi);
         if (!cfg.showNetworkPill) btnWifi.setVisibility(View.GONE);
+        btnRam = findViewById(R.id.btnRam);
+        btnRam.setBackground(new GlassDrawable(btnRam, 21 * density, density, null));
+        Backdrop.watch(btnRam);
+        updateRam();
         shamsiDate = findViewById(R.id.shamsiDate);
         shamsi = cfg.shamsiDate;
         if (shamsi) {
@@ -455,7 +472,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             open(systemIntent(Settings.ACTION_WIFI_SETTINGS));
             return true;
         });
-        btnSettings.setOnClickListener(v -> open(systemIntent(Settings.ACTION_SETTINGS)));
+        btnSettings.setOnClickListener(v -> showSettingsMenu());
         btnSettings.setOnLongClickListener(v -> {
             if (!moduleCards) return false;   // off: a long press does nothing, as before the feature
             showModuleCards();
@@ -703,6 +720,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         checkAzan();
         AzanAlarm.scheduleNext(this);
         updateWifiLabel();
+        updateRam();
+        handler.removeCallbacks(ramTick);
+        handler.postDelayed(ramTick, RAM_MS);
         updateInputsButton();
         startWallpaperRotation();
         handler.postDelayed(minuteTick, MINUTE_MS);
@@ -792,6 +812,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         super.onPause();
         unregisterReceiver(packageReceiver);
         handler.removeCallbacks(minuteTick);
+        handler.removeCallbacks(ramTick);
         handler.removeCallbacks(wallTick);
         if (azan != null) azan.stop();
         Azan.homeResumed = false;
@@ -833,6 +854,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     @Override
     public void onBackPressed() {
+        // A glass menu open over Home closes first, whichever view holds focus (a menu opened by touch has none).
+        if (openMenu != null) {
+            closeMenu(true);
+            return;
+        }
         // Home screen: Back goes nowhere.
     }
 
@@ -1637,11 +1663,102 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         btnWifi.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, 0, 0, 0);
     }
 
-    /** The network pill opens the VPN app when one is configured and installed, otherwise Wi-Fi settings. */
+    /** The network pill opens the VPN app when one is configured and installed, otherwise the glass network menu. */
     private void openNetworkPill() {
         Intent i = vpnApp.isEmpty() ? null : getPackageManager().getLeanbackLaunchIntentForPackage(vpnApp);
         if (i == null && !vpnApp.isEmpty()) i = getPackageManager().getLaunchIntentForPackage(vpnApp);
-        open(i != null ? i : systemIntent(Settings.ACTION_WIFI_SETTINGS));
+        if (i != null) {
+            open(i);
+            return;
+        }
+        showNetworkMenu();
+    }
+
+    /** Live memory use on the pill beside the network button. */
+    private void updateRam() {
+        if (btnRam == null) return;
+        ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        if (am == null) return;
+        ActivityManager.MemoryInfo memory = new ActivityManager.MemoryInfo();
+        am.getMemoryInfo(memory);
+        if (memory.totalMem <= 0) return;
+        int percent = (int) Math.round((memory.totalMem - memory.availMem) * 100.0 / memory.totalMem);
+        btnRam.setText(getString(R.string.ram_usage, percent));
+        btnRam.setContentDescription(getString(R.string.ram_usage_description, percent));
+    }
+
+    /** The network pill's glass menu: the connection it is on, then the system pages that change it. */
+    private void showNetworkMenu() {
+        if (openMenu != null) return;
+        FrameLayout panel = (FrameLayout) getLayoutInflater().inflate(R.layout.popup_inputs, root, false);
+        LinearLayout rows = panel.findViewById(R.id.rows);
+        boolean online = networkOnline();
+        CharSequence name = TextUtils.isEmpty(btnWifi.getText()) ? getString(R.string.wifi) : btnWifi.getText();
+        addMenuHeader(rows, R.drawable.ic_wifi, name.toString(),
+                getString(online ? R.string.connected : R.string.offline), online);
+        addSeparator(rows);
+        addMenuRow(rows, R.string.wifi_settings, () -> open(systemIntent(Settings.ACTION_WIFI_SETTINGS)));
+        addMenuRow(rows, R.string.network_settings, () -> open(systemIntent(Settings.ACTION_WIRELESS_SETTINGS)));
+        panel.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        int width = Math.max((int) (250 * density), Math.min(panel.getMeasuredWidth(), (int) (360 * density)));
+        View anchor = btnWifi.getVisibility() == View.VISIBLE ? btnWifi : findViewById(R.id.btnSettings);
+        showMenu(panel, rows, anchor, width, false);
+    }
+
+    /** The Settings pill's glass menu: the pages an owner actually changes, without leaving Home first. */
+    private void showSettingsMenu() {
+        if (openMenu != null) return;
+        FrameLayout panel = (FrameLayout) getLayoutInflater().inflate(R.layout.popup_inputs, root, false);
+        LinearLayout rows = panel.findViewById(R.id.rows);
+        addMenuHeader(rows, R.drawable.ic_settings, getString(R.string.settings), Build.MODEL, false);
+        addSeparator(rows);
+        addMenuRow(rows, R.string.display_settings, () -> open(systemIntent(Settings.ACTION_DISPLAY_SETTINGS)));
+        addMenuRow(rows, R.string.sound_settings, () -> open(systemIntent(Settings.ACTION_SOUND_SETTINGS)));
+        addMenuRow(rows, R.string.app_settings, () -> open(systemIntent(Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS)));
+        addMenuRow(rows, R.string.android_settings, () -> open(systemIntent(Settings.ACTION_SETTINGS)));
+        addMenuRow(rows, R.string.home_settings, () -> startActivity(new Intent(this, HomeSettingsActivity.class)));
+        panel.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        int width = Math.max((int) (220 * density), Math.min(panel.getMeasuredWidth(), (int) (360 * density)));
+        showMenu(panel, rows, findViewById(R.id.btnSettings), width, false);
+    }
+
+    /** True when Android has a validated way to the internet, whichever link carries it. */
+    private boolean networkOnline() {
+        ConnectivityManager cm = getSystemService(ConnectivityManager.class);
+        if (cm == null) return false;
+        for (Network net : cm.getAllNetworks()) {
+            NetworkCapabilities caps = cm.getNetworkCapabilities(net);
+            if (caps != null && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) return true;
+        }
+        return false;
+    }
+
+    /** The read-only line at the top of a menu: what it is about, and its state. */
+    private void addMenuHeader(LinearLayout rows, int iconRes, String title, String status, boolean online) {
+        View row = getLayoutInflater().inflate(R.layout.item_input, rows, false);
+        ((ImageView) row.findViewById(R.id.icon)).setImageResource(iconRes);
+        ((TextView) row.findViewById(R.id.title)).setText(title);
+        TextView state = row.findViewById(R.id.status);
+        state.setText(status);
+        state.setVisibility(View.VISIBLE);
+        row.findViewById(R.id.dot).setVisibility(online ? View.VISIBLE : View.GONE);
+        row.setFocusable(false);
+        row.setClickable(false);
+        rows.addView(row);
+    }
+
+    /** One glass row that closes the menu and does its action. */
+    private void addMenuRow(LinearLayout rows, int titleRes, Runnable action) {
+        View row = getLayoutInflater().inflate(R.layout.item_input, rows, false);
+        row.findViewById(R.id.icon).setVisibility(View.GONE);
+        row.findViewById(R.id.dot).setVisibility(View.GONE);
+        row.findViewById(R.id.status).setVisibility(View.GONE);
+        ((TextView) row.findViewById(R.id.title)).setText(titleRes);
+        row.setOnClickListener(v -> {
+            closeMenu(false);
+            action.run();
+        });
+        rows.addView(row);
     }
 
 

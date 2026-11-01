@@ -198,6 +198,20 @@
                     android:drawableStart="@drawable/ic_input"
                     android:nextFocusDown="@+id/grid" />
 
+                <!-- Live RAM use, beside the network pill. A readout, not a button: the D-pad skips it. -->
+                <TextView
+                    android:id="@+id/btnRam"
+                    style="@style/TopMenuButton"
+                    android:layout_width="wrap_content"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="16dp"
+                    android:textSize="13sp"
+                    android:letterSpacing="0.06"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:importantForAccessibility="no"
+                    android:text="RAM" />
+
                 <TextView
                     android:id="@+id/btnWifi"
                     style="@style/TopMenuButton"

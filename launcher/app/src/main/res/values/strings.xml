@@ -18,6 +18,14 @@
     <string name="dream_name">Clock</string>
     <string name="vpn">VPN</string>
     <string name="vpn_off">VPN off</string>
+    <string name="ram_usage">RAM %1$d%%</string>
+    <string name="ram_usage_description">Memory in use: %1$d percent</string>
+    <string name="wifi_settings">Wi-Fi settings</string>
+    <string name="network_settings">Network &amp; Internet</string>
+    <string name="display_settings">Display</string>
+    <string name="sound_settings">Sound</string>
+    <string name="app_settings">Apps</string>
+    <string name="android_settings">Android settings</string>
     <string name="home_settings">Default home</string>
     <string name="home_settings_help">Choose a home screen in system settings, then press Home.</string>
     <string name="input_key_service_description">Opens the input switcher when the remote\'s Input button is pressed.</string>
