@@ -87,7 +87,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
         }
     }
 
-    static final float FOCUS_SCALE = 1.15f;
+    static final float FOCUS_SCALE = 1.30f;
     /** Shared by every tile's zoom, so a focus move makes no new objects. */
     private static final DecelerateInterpolator ZOOM_REDUCED = new DecelerateInterpolator();
     private static final OvershootInterpolator ZOOM_IN = new OvershootInterpolator(1.6f);
@@ -103,7 +103,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
         int design = Math.round(DESIGN_W_DP * density);
         if (innerWidthPx <= 0 || columns <= 0) return design;
         int cell = innerWidthPx / columns;
-        int fit = (int) ((cell - 12 * density) / FOCUS_SCALE);
+        int fit = (int) ((cell - 12 * density) / 1.15f);
         return Math.max(Math.round(80 * density), Math.min(design, fit));
     }
 
