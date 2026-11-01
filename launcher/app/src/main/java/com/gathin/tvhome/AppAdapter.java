@@ -307,6 +307,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
     public void onBindViewHolder(@NonNull Holder h, int position) {
         Entry e = items.get(position);
         h.name.setText(e.name);
+        h.glowColor = ambientColorAt(position);
         h.name.setVisibility(position < dockSize ? View.INVISIBLE : View.VISIBLE);   // the dock has no labels
         boolean focused = h.card.isFocused();   // a rebind after reload() can hit the focused tile
         h.name.setAlpha(focused ? 1f : 0f);
@@ -496,6 +497,27 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
         final TextView label;
         final TextView name;
         final boolean reducedMotion;
+        int glowColor = 0xFFFFFFFF;
+
+        void applyGlow(boolean focused) {
+            float d = card.getResources().getDisplayMetrics().density;
+            if (focused) {
+                int w = card.getWidth() > 0 ? card.getWidth() : card.getLayoutParams().width;
+                android.graphics.drawable.GradientDrawable g = new android.graphics.drawable.GradientDrawable();
+                g.setColor(0);
+                g.setCornerRadius(cornerRadius(w, d));
+                g.setStroke(Math.round(3 * d), glowColor);
+                card.setForeground(g);
+                if (android.os.Build.VERSION.SDK_INT >= 28) {
+                    card.setOutlineSpotShadowColor(glowColor);
+                    card.setOutlineAmbientShadowColor(glowColor);
+                }
+                card.setElevation(24 * d);
+            } else {
+                card.setForeground(null);
+                card.setElevation(0f);
+            }
+        }
 
         Holder(View v, TileListener listener, boolean reducedMotion) {
             super(v);
@@ -526,6 +548,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
 
             card.setOnFocusChangeListener((view, focused) -> {
                 float s = focused ? FOCUS_SCALE : 1.0f;
+                applyGlow(focused);
                 view.animate().cancel();
                 name.animate().cancel();
                 if (reducedMotion) {
