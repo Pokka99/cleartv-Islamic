@@ -33,8 +33,8 @@ final class PrayerTimes {
     static final String[] NAMES = {"Subuh", "Zuhur", "Asar", "Magrib", "Isya"};
     /** Month abbreviations as e-Solat writes them in its dates ("21-Okt-2026"). */
     private static final String[] MONTHS = {"jan", "feb", "mac", "apr", "mei", "jun", "jul", "ogo", "sep", "okt", "nov", "dis"};
-    private static final String[] HIJRI_MONTHS = {"Muharram", "Safar", "Rabiulawal", "Rabiulakhir", "Jamadilawal",
-            "Jamadilakhir", "Rejab", "Syaaban", "Ramadan", "Syawal", "Zulkaedah", "Zulhijjah"};
+    private static final String[] HIJRI_MONTHS = {"Muharam", "Safar", "Rabiulawal", "Rabiulakhir", "Jumadilawal",
+            "Jumadilakhir", "Rajab", "Syakban", "Ramadan", "Syawal", "Zulkaidah", "Zulhijah"};
 
     /** One day's times, in minutes after midnight, and its Hijri date ("10 Jamadilawal 1448"). */
     static final class Day {
@@ -158,8 +158,8 @@ final class PrayerTimes {
     /** "dalam 12 min", "dalam 1 j 5 min", "dalam 2 j". */
     static String countdown(int minutesLeft) {
         int h = minutesLeft / 60, m = minutesLeft % 60;
-        if (h == 0) return "dalam " + Math.max(1, m) + " min";
-        return m == 0 ? "dalam " + h + " j" : "dalam " + h + " j " + m + " min";
+        if (h == 0) return "dalam " + Math.max(1, m) + " menit";
+        return m == 0 ? "dalam " + h + " jam" : "dalam " + h + " jam " + m + " menit";
     }
 
     /** "05:49" in 24-hour time, "5:49" in 12-hour time (the clock beside it says AM or PM). */
