@@ -30,7 +30,7 @@ final class PrayerTimes {
     private static final long RETRY_MS = 60L * 60 * 1000;
     /** JAKIM's keys, in the order the row shows them. */
     private static final String[] KEYS = {"fajr", "dhuhr", "asr", "maghrib", "isha"};
-    static final String[] NAMES = {"Subuh", "Zohor", "Asar", "Maghrib", "Isyak"};
+    static final String[] NAMES = {"Subuh", "Zuhur", "Asar", "Magrib", "Isya"};
     /** Month abbreviations as e-Solat writes them in its dates ("21-Okt-2026"). */
     private static final String[] MONTHS = {"jan", "feb", "mac", "apr", "mei", "jun", "jul", "ogo", "sep", "okt", "nov", "dis"};
     private static final String[] HIJRI_MONTHS = {"Muharram", "Safar", "Rabiulawal", "Rabiulakhir", "Jamadilawal",
