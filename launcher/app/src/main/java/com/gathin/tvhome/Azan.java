@@ -3,6 +3,7 @@ package com.gathin.tvhome;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.AudioAttributes;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Looper;
@@ -31,6 +32,9 @@ final class Azan {
     private final Runnable finish = this::stop;
     private AzanView view;
     private MediaPlayer player;
+    private static final int AZAN_VOLUME = 9;
+    private AudioManager audioMgr;
+    private int savedVolume = -1;
     /**
      * True while Home or the screensaver is on screen: they give the azan themselves, full screen.
      * Otherwise another app is in front, and AzanOverlay gives it over that app.
@@ -102,6 +106,13 @@ final class Azan {
         }
         try {
             
+            try {
+                audioMgr = (AudioManager) ctx.getSystemService(Context.AUDIO_SERVICE);
+                if (savedVolume < 0) savedVolume = audioMgr.getStreamVolume(AudioManager.STREAM_MUSIC);
+                audioMgr.setStreamVolume(AudioManager.STREAM_MUSIC, AZAN_VOLUME, 0);
+            } catch (Exception e) {
+                Log.w(TAG, "volume set failed: " + e.getMessage());
+            }
             player = new MediaPlayer();
             player.setAudioAttributes(new AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_MEDIA)
@@ -137,6 +148,13 @@ final class Azan {
     }
 
     private void releasePlayer() {
+        if (audioMgr != null && savedVolume >= 0) {
+            try {
+                audioMgr.setStreamVolume(AudioManager.STREAM_MUSIC, savedVolume, 0);
+            } catch (Exception ignored) {
+            }
+            savedVolume = -1;
+        }
         if (player == null) return;
         try {
             player.stop();
