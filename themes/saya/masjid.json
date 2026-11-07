@@ -1,0 +1,83 @@
+{
+ "about": "Gambar masjid untuk screensaver Islamik, dari Wikimedia Commons. tools/masjid-photos.py memuat turunnya ke folder masjid/ dalam theme.",
+ "photos": [
+  {
+   "commons": "Edited_Great_Mosque_of_Mecca1_5-2019-ccsa4.0_(cropped).jpg",
+   "caption": "Masjidil Haram, Mekah",
+   "author": "Saudipics.com",
+   "license": "CC BY-SA 4.0"
+  },
+  {
+   "commons": "The_Kaaba_during_Hajj_-_edited.jpg",
+   "caption": "Kaabah, Mekah",
+   "author": "Adli Wahid, suntingan Basile Morin",
+   "license": "CC BY-SA 4.0"
+  },
+  {
+   "commons": "Masjid_Nabawi_The_Prophet's_Mosque,_Madina.jpg",
+   "caption": "Masjid Nabawi, Madinah",
+   "author": "Muhammad Mahdi Karim",
+   "license": "GFDL 1.2"
+  },
+  {
+   "commons": "Masjid_Quba_Mosque.jpg",
+   "caption": "Masjid Quba, Madinah",
+   "author": "Muhammad Mahdi Karim",
+   "license": "GFDL 1.2"
+  },
+  {
+   "commons": "Cristal_Mosque_in_Kuala_Terengganu.jpg",
+   "caption": "Masjid Kristal, Kuala Terengganu",
+   "author": "emrank (Flickr)",
+   "license": "CC BY 2.0"
+  },
+  {
+   "commons": "Floating_Mosque.jpg",
+   "caption": "Masjid Tengku Tengah Zaharah, Kuala Terengganu",
+   "author": "bbbsheep (Flickr)",
+   "license": "CC BY 2.0"
+  },
+  {
+   "commons": "Masjid_Putra,_Putrajaya,_Malaysia.jpg",
+   "caption": "Masjid Putra, Putrajaya",
+   "author": "Wikimedia Commons",
+   "license": "CC BY 4.0"
+  },
+  {
+   "commons": "Jame'Asr_Hassanil_Bolkiah_Mosque_(18404307540).jpg",
+   "caption": "Masjid Jame' Asr Hassanil Bolkiah, Brunei",
+   "author": "Jorge Láscar",
+   "license": "CC BY 2.0"
+  },
+  {
+   "commons": "Sultan_Ahmed_Mosque_2022_2.jpg",
+   "caption": "Masjid Sultan Ahmed, Istanbul",
+   "author": "kallerna",
+   "license": "CC BY-SA 4.0"
+  },
+  {
+   "commons": "Ali_Mujtaba_WLM2017_FAISAL_MOSQUE_019.jpg",
+   "caption": "Masjid Faisal, Islamabad",
+   "author": "Ali Mujtaba",
+   "license": "CC BY-SA 4.0"
+  },
+  {
+   "commons": "Badshahi_Mosque_front_picture.jpg",
+   "caption": "Masjid Badshahi, Lahore",
+   "author": "Romero Maia",
+   "license": "CC BY-SA 4.0"
+  },
+  {
+   "commons": "Jerusalem_DomeoftheRock_J65_(cropped).JPG",
+   "caption": "Kubah As-Sakhrah, Baitulmaqdis",
+   "author": "Ludvig14",
+   "license": "CC BY-SA 4.0"
+  },
+  {
+   "commons": "Nasir_ol_Molk_Mosque_(31233739431).jpg",
+   "caption": "Masjid Nasir al-Mulk, Shiraz",
+   "author": "Matt Biddulph",
+   "license": "CC BY-SA 2.0"
+  }
+ ]
+}

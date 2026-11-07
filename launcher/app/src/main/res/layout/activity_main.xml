@@ -110,8 +110,12 @@
                         android:textColor="#FFFFFFFF"
                         android:textSize="52sp"
                         android:fontFamily="@font/outfit"
-                        android:fontVariationSettings="'wght' 300"
+                        android:fontVariationSettings="'wght' 600"
                         android:letterSpacing="-0.04"
+                        android:shadowColor="#CC000000"
+                        android:shadowDx="0"
+                        android:shadowDy="3"
+                        android:shadowRadius="8"
                         android:includeFontPadding="false" />
 
                     <!-- AM/PM over the date, both starting at the same line: the date on the digits'

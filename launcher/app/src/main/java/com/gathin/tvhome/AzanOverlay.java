@@ -57,6 +57,8 @@ public class AzanOverlay extends Service {
     private MediaPlayer player;
     private AudioManager audio;
     private AudioFocusRequest focus;
+    private static final int AZAN_VOLUME = 9;
+    private int savedVolume = -1;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -133,6 +135,11 @@ public class AzanOverlay extends Service {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             focus = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT).setAudioAttributes(attrs).build();
             audio.requestAudioFocus(focus);
+            try {
+                if (savedVolume < 0) savedVolume = audio.getStreamVolume(AudioManager.STREAM_MUSIC);
+                audio.setStreamVolume(AudioManager.STREAM_MUSIC, AZAN_VOLUME, 0);
+            } catch (Exception ignored) {
+            }
         }
         try {
             player = new MediaPlayer();
@@ -163,6 +170,13 @@ public class AzanOverlay extends Service {
             }
             player.release();
             player = null;
+        }
+        if (audio != null && savedVolume >= 0) {
+            try {
+                audio.setStreamVolume(AudioManager.STREAM_MUSIC, savedVolume, 0);
+            } catch (Exception ignored) {
+            }
+            savedVolume = -1;
         }
         if (focus != null && audio != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             audio.abandonAudioFocusRequest(focus);

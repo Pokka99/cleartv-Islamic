@@ -36,7 +36,7 @@ import java.util.regex.Pattern;
 final class PlaceWallpapers {
     private static final String TAG = "TvHome.Places";
     static final String DIR = "place-wallpapers";
-    private static final long REFRESH_MS = 7L * 24 * 60 * 60 * 1000;
+    private static final long REFRESH_MS = 1L * 24 * 60 * 60 * 1000;
     /**
      * Words in a picture's name or headline that mean someone is in it. Only those two are read:
      * they describe the picture, where the paragraph under them tells the place's story, and
@@ -51,7 +51,7 @@ final class PlaceWallpapers {
             + "|kayakers?|soldiers?|guards?|vendors?|shoppers?|players?|fans)\\b", Pattern.CASE_INSENSITIVE);
 
     /** Raised whenever the rules for which pictures are kept change. */
-    private static final int RULES = 1;
+    private static final int RULES = 3;
 
     private PlaceWallpapers() {
     }
@@ -93,44 +93,25 @@ final class PlaceWallpapers {
         try {
             deleteAll(fresh);
             if (!fresh.mkdirs()) return false;
-            String mkt = Locale.getDefault().toLanguageTag();
-            JSONObject model = new JSONObject(new String(get("https://www.bing.com/hp/api/model?mkt="
-                    + URLEncoder.encode(mkt, "UTF-8"), 512 * 1024), StandardCharsets.UTF_8));
-            JSONArray items = model.optJSONArray("MediaContents");
             int n = 0;
-            for (int i = 0; items != null && i < items.length(); i++) {
-                JSONObject item = items.optJSONObject(i);
-                JSONObject about = item != null ? item.optJSONObject("ImageContent") : null;
-                JSONObject image = about != null ? about.optJSONObject("Image") : null;
-                if (image == null) continue;
-                String place = about.optString("Title", "").trim();
-                String headline = about.optString("Headline", "").trim();
-                String text = about.optString("Description", "").trim();
-                String url = image.optString("Url", "");
-                if (place.isEmpty() || url.isEmpty()) continue;
-                if (PEOPLE.matcher(place + " " + headline).find()) {
-                    Log.i(TAG, "skipped, names people: " + place);
+            String pkey = pixabayKey(ctx);
+            java.util.List<String> urls = pkey == null ? null : pixabayUrls(pkey);
+            for (int i = 0; i < 80 && n < 50; i++) {
+                byte[] jpg;
+                try {
+                    String u = (urls != null && i < urls.size()) ? urls.get(i) : null;
+                    if (u == null) break;
+                    jpg = get(u, 3 * 1024 * 1024);
+                } catch (Exception e) {
+                    Log.w(TAG, "picture " + i + " failed: " + e);
                     continue;
                 }
-                // The 1920 x 1080 picture, as a JPEG rather than the WebP Bing names first.
-                byte[] jpg = get("https://www.bing.com" + url.replace(".webp", ".jpg"), 3 * 1024 * 1024);
                 int faces = faces(jpg);
                 if (faces != 0) {
-                    Log.i(TAG, "skipped, " + (faces < 0 ? "unreadable" : faces + " face(s)") + ": " + place);
+                    Log.i(TAG, "skipped, " + (faces < 0 ? "unreadable" : faces + " face(s)"));
                     continue;
                 }
-                // Only somewhere: a picture whose caption names no country (fossils, say) is left out.
-                String[] named = nameAndCountry(place);
-                if (named[1].isEmpty()) {
-                    Log.i(TAG, "skipped, no country: " + place);
-                    continue;
-                }
-                String base = String.format(Locale.ROOT, "%02d", n++);
-                write(new File(fresh, base + ".jpg"), jpg);
-                // One line each, so a stray newline in the text cannot be read back as a name:
-                // the thing's name, the description, the country.
-                write(new File(fresh, base + ".txt"), (named[0].replace('\n', ' ') + "\n"
-                        + text.replace('\n', ' ') + "\n" + named[1].replace('\n', ' ')).getBytes(StandardCharsets.UTF_8));
+                write(new File(fresh, String.format(Locale.ROOT, "%02d", n++) + ".jpg"), jpg);
             }
             if (n == 0) {
                 deleteAll(fresh);
@@ -260,6 +241,41 @@ final class PlaceWallpapers {
         File[] files = d.listFiles();
         if (files != null) for (File f : files) f.delete();
         d.delete();
+    }
+
+    private static String pixabayKey(Context ctx) {
+        try {
+            File dir = Config.dir(ctx);
+            if (dir == null) return null;
+            File f = new File(dir, "pixabay.key");
+            if (!f.isFile()) return null;
+            String k = new String(java.nio.file.Files.readAllBytes(f.toPath()), "UTF-8").trim();
+            return k.matches("[0-9a-zA-Z-]{20,60}") ? k : null;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private static java.util.List<String> pixabayUrls(String key) {
+        String[] topics = {"colorful flower field", "spring flowers meadow", "mountain flowers landscape", "green mountain valley", "colorful sunrise mountain", "tulip field", "lavender field", "waterfall forest", "ocean beach sunset", "tropical sea island", "green forest sunlight", "misty forest", "desert dunes landscape", "desert sunrise"};
+        java.util.List<String> urls = new java.util.ArrayList<>();
+        java.util.Random rnd = new java.util.Random();
+        for (String q : topics) {
+            try {
+                byte[] b = get("https://pixabay.com/api/?key=" + key + "&q=" + java.net.URLEncoder.encode(q, "UTF-8")
+                        + "&category=nature&image_type=photo&orientation=horizontal&min_width=1920&min_height=1080&safesearch=true"
+                        + "&per_page=20&page=" + (1 + rnd.nextInt(8)), 512 * 1024);
+                org.json.JSONArray hits = new org.json.JSONObject(new String(b, "UTF-8")).getJSONArray("hits");
+                for (int i = 0; i < hits.length() && i < 15; i++) {
+                    String u = hits.getJSONObject(i).optString("largeImageURL", "");
+                    if (u.startsWith("https://")) urls.add(u);
+                }
+            } catch (Exception e) {
+                Log.w(TAG, "pixabay " + q + " failed: " + e);
+            }
+        }
+        java.util.Collections.shuffle(urls);
+        return urls;
     }
 
     private static byte[] get(String url, int maxBytes) throws Exception {
