@@ -257,7 +257,7 @@ final class PlaceWallpapers {
     }
 
     private static java.util.List<String> pixabayUrls(String key) {
-        String[] topics = {"colorful flower field", "spring flowers meadow", "mountain flowers landscape", "green mountain valley", "colorful sunrise mountain", "tulip field", "lavender field", "waterfall forest", "ocean beach sunset", "tropical sea island", "green forest sunlight", "misty forest", "desert dunes landscape", "desert sunrise"};
+        String[] topics = {"mountain lake", "waterfall forest", "lavender field", "misty forest", "green mountain valley", "colorful sunrise mountain", "mountain landscape", "forest lake landscape", "desert dunes landscape", "green forest sunlight"};
         java.util.List<String> urls = new java.util.ArrayList<>();
         java.util.Random rnd = new java.util.Random();
         for (String q : topics) {
