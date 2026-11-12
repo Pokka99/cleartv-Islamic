@@ -32,7 +32,7 @@ final class Azan {
     private final Runnable finish = this::stop;
     private AzanView view;
     private MediaPlayer player;
-    private static final int AZAN_VOLUME = 9;
+    private static final int AZAN_VOLUME = 6;
     private AudioManager audioMgr;
     private int savedVolume = -1;
     /**

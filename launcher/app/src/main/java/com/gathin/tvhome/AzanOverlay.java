@@ -57,7 +57,7 @@ public class AzanOverlay extends Service {
     private MediaPlayer player;
     private AudioManager audio;
     private AudioFocusRequest focus;
-    private static final int AZAN_VOLUME = 9;
+    private static final int AZAN_VOLUME = 6;
     private int savedVolume = -1;
 
     @Override
